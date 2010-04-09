@@ -1,5 +1,31 @@
 --- 
-title: A New Item
+title: Java
 ---
 
-Hi, I'm a new item!
+Java
+====
+
+FP Types
+--------
+<code>float</code>: always an IEEE 32 bit float  
+<code>double</code>: always an IEEE 64 bit float  
+
+Decimal Types
+-------------
+Java has an arbitrary-precision decimal type named <code>BigDecimal</code>, which
+also allows to choose the rounding mode.
+
+
+How to Round
+------------
+	String.format("%.2f", 1.2399) // returns "1.24"
+	String.format("%.3f", 1.2399) // returns "1.240"
+	String.format("%.2f", 1.2) // returns "1.20"
+	new DecimalFormat("0.00").format(1.2)// returns "1.20"
+	new DecimalFormat("0.##").format(1.2)// returns "1.2"
+
+
+Resources 
+---------
+[Java Language Specification](http://java.sun.com/docs/books/jls/third_edition/html/j3TOC.html)  
+[Java Standard API](http://java.sun.com/javase/6/docs/api/)  
