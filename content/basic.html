@@ -1,6 +1,8 @@
 --- 
 title: Basic Answers
 ---
+<%= @item[:title] %>
+====================
 
 ### Why don't my numbers, like 0.1 + 0.2 add up to a nice round 0.3, and instead I get a weird result like 0.30000000000000004?
 
@@ -14,7 +16,7 @@ in a slight error even before the calculation happens.
 
 It's not stupid, just different. Decimal numbers cannot accurately 
 represent a number like 1/3, so you have to round to 0.33 - and you 
-don't expect 0.33 + 0.33 + 0.33 to result in 1, either.
+don't expect 0.33 + 0.33 + 0.33 to add up to 1, either - do you?
 
 Computers use binary numbers because they're faster at dealing with 
 those, and because for most calculations, a tiny error in the 17th
@@ -23,10 +25,10 @@ aren't round (or that precise) anyway.
 
 ### What can I do to avoid this problem?
 
-That depends on what kind of calculations you're doing:
+That depends on what kind of calculations you're doing.
 
-* If you are doing technical calculations with short numbers and just don't want to end up with all those extra decimal places: simply [round your result](/rounding) to a fixed number of decimal places.
 * If you really need your results to add up exactly, especially when you work with money: use a special [decimal datatype](/decimal). Look at the "languages" section for details.
+* If you just don't want to end up with all those extra decimal places: simply [round your result](/rounding) to a fixed number of decimal places.
 * If you have no decimal datatype available, an alternative is to work with integers, e.g. do money calculations entirely in cents. But this is more work and has some drawbacks.
 
 

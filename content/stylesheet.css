@@ -10,6 +10,45 @@ body {
   background: #ffffee;
 }
 
+table {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+td{
+	border: 1px solid black;
+	padding: 5px;
+}
+tr.base_example td{
+	border-left:none;
+	border-right:none;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	padding: 2px;
+	vertical-align:bottom;
+}
+tr.base_example td.separator{
+	border: 1px solid black;
+	padding: 5px;
+}
+tr.base_example td.digit{
+	font-weight:bold;
+	color: #ff0000
+}
+th {
+	border: 1px solid black;
+	padding: 5px;
+	background: #fff0f0;
+	text-align: left;
+}
+
+.num_base{
+	color: #0000ff
+}
+
+.num_base sup{
+	color: #000000
+}
+
 #main {
   position: absolute;
 
@@ -19,11 +58,7 @@ body {
 
 #main h1 {
   font-size: 30px;
-  font-weight: normal;
-
   line-height: 30px;
-
-  letter-spacing: -1px;
 }
 
 #main p {

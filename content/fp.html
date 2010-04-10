@@ -1,6 +1,38 @@
 --- 
-title: A New Item
+title: Floating Point Numbers
 ---
 
-![Obligatory xkcd cartoon](http://imgs.xkcd.com/comics/e_to_the_pi_minus_pi.png "Obligatory xkcd cartoon")
-How to mess with people who've come to *expect* rounding errors in floating point math.
+Floating Point Numbers
+======================
+
+Binary Fractions
+----------------
+As a programmer, you are familiar with the concept of binary integers, i.e.
+the representation of integer numbers as a series of bits:
+
+<table>
+<tr><th colspan="9">Decimal (<span class="num_base">base 10</span>)</th><th></th><th colspan="17">Binary (<span class="num_base">base 2</span>)</th></tr>
+<tr class="base_example">
+<td class="digit">1</td><td>&sdot;</td><td class="num_base">10<sup>1</sup></td><td>+</td>
+<td class="digit">3</td><td>&sdot;</td><td class="num_base">10<sup>0</sup></td><td>=</td>
+<td class="digit">13<sub class="num_base">10</sub></td><td class="separator">=</td>
+<td class="digit">1101<sub class="num_base">2</sub></td><td>=</td>
+<td class="digit">1</td><td>&sdot;</td><td class="num_base">2<sup>3</sup></td><td>+</td>
+<td class="digit">1</td><td>&sdot;</td><td class="num_base">2<sup>2</sup></td><td>+</td>
+<td class="digit">0</td><td>&sdot;</td><td class="num_base">2<sup>1</sup></td><td>+</td>
+<td class="digit">1</td><td>&sdot;</td><td class="num_base">2<sup>0</sup></td>
+</tr><tr class="base_example">
+<td class="digit">1</td><td>&sdot;</td><td>10</td><td>+</td>
+<td class="digit">3</td><td>&sdot;</td><td>1 </td><td>=</td>
+<td class="digit">13<sub class="num_base">10</sub></td><td class="separator">=</td>
+<td class="digit">1101<sub class="num_base">2</sub></td><td>=</td>
+<td class="digit">1</td><td>&sdot;</td><td>8</td><td>+</td>
+<td class="digit">1</td><td>&sdot;</td><td>4</td><td>+</td>
+<td class="digit">0</td><td>&sdot;</td><td>2</td><td>+</td>
+<td class="digit">1</td><td>&sdot;</td><td>0</td>
+</tr></table>
+
+This is how computers store integer numbers internally. And for fractional numbers, they do the same thing:
+
+
+

@@ -14,6 +14,13 @@ compile '/stylesheet/' do
   # don’t filter or layout
 end
 
+compile '/favicon/' do
+  # don’t filter or layout
+end
+compile '/logo/' do
+  # don’t filter or layout
+end
+
 compile '*' do
   filter :erb
   filter :kramdown
@@ -22,6 +29,13 @@ end
 
 route '/stylesheet/' do
   '/style.css'
+end
+
+route '/favicon/' do
+  '/favicon.ico'
+end
+route '/logo/' do
+  '/logo.png'
 end
 
 route '*' do
