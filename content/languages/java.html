@@ -2,7 +2,7 @@
 title: Java
 ---
 
-Java
+How to deal with floating point numbers in Java
 ====
 
 FP Types
@@ -14,7 +14,9 @@ Decimal Types
 -------------
 Java has an arbitrary-precision decimal type named <code>java.math.BigDecimal</code>, which
 also allows to choose the rounding mode:
-	new BigDecimal("0.1").add(new BigDecimal("0.2")) // returns a BigDecimal representing exactly 0.3
+	BigDecimal a = new BigDecimal("0.1");
+	BigDecimal b = new BigDecimal("0.2");
+	BigDecimal c = a.add(b); // returns a BigDecimal representing exactly 0.3
 
 
 How to Round
