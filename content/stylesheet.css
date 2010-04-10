@@ -19,6 +19,7 @@ td{
 	padding: 5px;
 }
 tr.base_example td{
+	font-weight:bold;
 	border-left:none;
 	border-right:none;
 	border-top: 1px solid black;
@@ -27,11 +28,11 @@ tr.base_example td{
 	vertical-align:bottom;
 }
 tr.base_example td.separator{
+	background: #fff0f0;
 	border: 1px solid black;
 	padding: 5px;
 }
 tr.base_example td.digit{
-	font-weight:bold;
 	color: #ff0000
 }
 th {
@@ -48,11 +49,14 @@ th {
 .num_base sup{
 	color: #000000
 }
+span.over {
+	text-decoration: overline;
+}
 
 #main {
   position: absolute;
 
-  top: 40px;
+  top: 10px;
   left: 280px;
 }
 
@@ -84,7 +88,7 @@ th {
 #sidebar {
   position: absolute;
 
-  top: 40px;
+  top: 10px;
   left: 20px;
   width: 200px;
 
