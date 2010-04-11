@@ -4,12 +4,13 @@ title: How to deal with floating-point numbers in Java
 
 Floating-Point Types
 --------
-<code>float</code>: always an IEEE 32 bit float  
-<code>double</code>: always an IEEE 64 bit float  
-
+Java has [IEEE 754](/formats/fp/) single and double precision types supported by keywords:
+		float f = 0.1f; // 32 bit float, note f suffix
+		double d = 0.1; // 64 bit float, suffix optional
+		
 Decimal Types
 -------------
-Java has an arbitrary-precision decimal type named <code>java.math.BigDecimal</code>, which
+Java has an [arbitrary-precision](/formats/exact/) decimal type named <code>java.math.BigDecimal</code>, which
 also allows to choose the rounding mode:
 	BigDecimal a = new BigDecimal("0.1");
 	BigDecimal b = new BigDecimal("0.2");

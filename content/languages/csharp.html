@@ -1,5 +1,28 @@
 --- 
-title: A New Item
----
+title: How to deal with floating-point numbers in C#
+--- 
 
-Hi, I'm a new item!
+Floating-Point Types
+--------
+C# has [IEEE 754](/formats/fp/) single and double precision types supported by keywords:
+		float f = 0.1f; // 32 bit float, note f suffix
+		double d = 0.1; // 64 bit float, suffix optional
+
+
+Decimal Types
+-------------
+C# has a 128 bit [limited-precision](/formats/exact/) decimal type denoted by the keyword
+<code>decimal</code>:
+		decimal myMoney = 300.1m; // note m suffix on the literal
+
+
+How to Round
+------------
+TODO
+
+
+Resources 
+---------
+[C# Referece](http://msdn.microsoft.com/en-us/library/618ayhy6%28v=VS.80%29.aspx)  
+
+

@@ -1,5 +1,29 @@
 --- 
-title: A New Item
----
+title: How to deal with floating-point numbers in JavaScript
+--- 
 
-Hi, I'm a new item!
+Floating-Point Types
+--------
+JavaScript is dynamically typed and will often convert implicitly between strings and floating-point numbers (which are IEEE 64 bit values). To force a variable to floating-point, use the global <code>parseFloat()</code> function.
+		var num = parseFloat("3.5");
+
+Decimal Types
+-------------
+
+TODO: is there a standard or widely used JS bignum/decimal library?
+
+How to Round
+------------
+		var num = 5.123456;
+		num.toPrecision(1) //returns 5 as string
+		num.toPrecision(2) //returns 5.1 as string
+		num.toPrecision(4) //returns 5.123 as string
+
+TODO: talk about rounding modes; Firefox JavaScript seems to use round-half-odd
+
+
+Resources 
+---------
+[Core JavaScript Reference](https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference)  
+
+
