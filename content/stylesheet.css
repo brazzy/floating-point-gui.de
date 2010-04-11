@@ -58,6 +58,7 @@ span.over {
 
   top: 10px;
   left: 280px;
+  margin-right:100px;
 }
 
 #main h1 {
@@ -118,7 +119,8 @@ span.over {
   font-size: 14px;
   line-height: 20px;
 }
-#license{
+#license p {
+  margin-top: 30px;
   font-size: 10px;
   text-align:center;
 }
