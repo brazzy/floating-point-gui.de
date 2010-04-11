@@ -7,3 +7,6 @@ when they are not appropriate.
 
 The site is build using the nanoc static site generator:
 http://nanoc.stoneship.org/
+
+and published under the Creative Commons Attribution License (BY):
+http://creativecommons.org/licenses/by/3.0/
