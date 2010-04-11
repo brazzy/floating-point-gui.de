@@ -101,24 +101,21 @@ span.over {
 
 #sidebar h2 {
   text-transform: uppercase;
-
   font-size: 13px;
-
   color: #333;
-
   letter-spacing: 1px;
-
   line-height: 20px;
+  margin-top: 30px;
+  margin-bottom: 5px;
 }
 
 #sidebar ul {
   list-style-type: none;
-
-  margin: 20px 0;
+  margin-top: 0px;
 }
 
 #sidebar li {
   font-size: 14px;
-
   line-height: 20px;
 }
+

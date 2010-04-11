@@ -9,26 +9,40 @@
   </head>
   <body>
     <div id="main">
+		<h1><%= @item[:title] %></h1>
       <%= yield %>
     </div>
     <div id="sidebar">
-	  <img src="/logo.png">
-      <h2>The Floating-Point Guide</h2>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/basic/">Basic Answers</a></li>
-        <li><a href="/fp/">Floating Point</a></li>
-        <li><a href="/decimal/">Decimal types</a></li>
-        <li><a href="/rounding/">Rounding</a></li>
-        <li><a href="/xkcd/">xkcd</a></li>
-      </ul>
-      <h2>Languages</h2>
-      <ul>
-        <li><a href="/languages/csharp/">C#</a></li>
-        <li><a href="/languages/java/">Java</a></li>
-        <li><a href="/languages/javascript/">JavaScript</a></li>
-        <li><a href="/languages/php/">PHP</a></li>
-      </ul>
+		<img src="/logo.png">
+		<h2>The Floating-Point Guide</h2>
+		<ul>
+		<li><a href="/">Home</a></li>
+			<li><a href="/basic/">Basic Answers</a></li>
+			<li><a href="/xkcd/">xkcd</a></li>		
+		</ul>
+	  
+		<h2>Number Formats</h2>	
+		<ul>
+			<li><a href="/formats/binary/">Binary Fractions</a></li>
+			<li><a href="/formats/fp/">Floating Point</a></li>
+			<li><a href="/formats/decimal/">Decimal types</a></li>
+		</ul>
+	
+		<h2>Errors</h2>	
+		<ul>
+			<li><a href="/errors/rounding/">Rounding</a></li>
+			<li><a href="/errors/comparison/">Comparison</a></li>
+			<li><a href="/errors/cancellation/">Cancellation</a></li>
+			<li><a href="/errors/propagation/">Propagation</a></li>
+		</ul>
+		
+		<h2>Languages</h2>
+		<ul>
+			<li><a href="/languages/csharp/">C#</a></li>
+			<li><a href="/languages/java/">Java</a></li>
+			<li><a href="/languages/javascript/">JavaScript</a></li>
+			<li><a href="/languages/php/">PHP</a></li>
+		</ul>
     </div>
   </body>
 </html>

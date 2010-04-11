@@ -1,12 +1,10 @@
 --- 
 title: Basic Answers
 ---
-<%= @item[:title] %>
-====================
 
 ### Why don't my numbers, like 0.1 + 0.2 add up to a nice round 0.3, and instead I get a weird result like 0.30000000000000004?
 
-Because internally, computers use a format ([binary floating point](/fp)) that
+Because internally, computers use a format (binary floating point) that
 cannot accurately represent a number like 0.1, 0.2 or 0.3 *at all*. 
 When the code is compiled or interpreted, your "0.1" is already 
 rounded to the nearest number in that format, which results 
@@ -27,8 +25,8 @@ aren't round (or that precise) anyway.
 
 That depends on what kind of calculations you're doing.
 
-* If you really need your results to add up exactly, especially when you work with money: use a special [decimal datatype](/decimal). Look at the "languages" section for details.
-* If you just don't want to end up with all those extra decimal places: simply [round your result](/rounding) to a fixed number of decimal places.
+* If you really need your results to add up exactly, especially when you work with money: use a special decimal datatype. Look at the "languages" section for details.
+* If you just don't want to end up with all those extra decimal places: simply round your result to a fixed number of decimal places.
 * If you have no decimal datatype available, an alternative is to work with integers, e.g. do money calculations entirely in cents. But this is more work and has some drawbacks.
 
 
