@@ -5,7 +5,7 @@ title: Floating Point Numbers
 Why floating point numbers are needed
 -------------------------------------
 
-Since computer memory is limited, you cannot store numbers with infinite precision, no matter whether you use binary fractions or decimal ones: at some point you have to cut off. But how much accuracy is needed? And *where* is it needed? How many integer digits and how many fraction digits? 
+Since computer memory is limited, you cannot store numbers with infinite precision, no matter whether you use [binary fractions](/formats/binary/) or decimal ones: at some point you have to cut off. But how much accuracy is needed? And *where* is it needed? How many integer digits and how many fraction digits? 
 
 * To an engineer building a highway, it does not matter whether it's 10 meters or 10.0001 meters wide - his measurements are probably not that accurate in the first place.
 * To someone designing a microchip, 0.0001 meters (a tenth of a millimeter) is a *huge* difference - But he'll never have to deal with a distance larger than 10 centimeters.
@@ -42,7 +42,7 @@ separate it from the significand.
 
 The standard
 ------------
-Nearly all hardware and programming languages use the same formats for floating point numbers, which are defined in the [IEEE 754](http://en.wikipedia.org/wiki/IEEE_754-2008) standard. The usual formats are 32 or 64 bits in total length:
+Nearly all hardware and programming languages use floating point numbers in the same binary formats, which are defined in the [IEEE 754](http://en.wikipedia.org/wiki/IEEE_754-2008) standard. The usual formats are 32 or 64 bits in total length:
 
 | Format | Total bits | Significand bits | Exponent bits | Smallest number | Largest number |
 |--------|------------|------------------|---------------|-----------------|----------------|

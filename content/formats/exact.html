@@ -2,7 +2,7 @@
 title: Exact Types
 ---
 
-While binary floating point numbers are better for computers to work with, and usually good enough for humans, sometimes they are just not appropriate. Sometimes, the numbers really must add up to the last bit, and no technical excuses are acceptable - usually when the calculations involve money. 
+While [binary](/formats/binary/) [floating point](/formats/fp/) numbers are better for computers to work with, and usually good enough for humans, sometimes they are just not appropriate. Sometimes, the numbers really must add up to the last bit, and no technical excuses are acceptable - usually when the calculations involve money. 
 
 Unfortunately, there is no dominating standard like IEEE 754 for this.
 Each language or platform has its own solution, sometimes multiple different ones. For details, look at the "Languages" section.
@@ -11,7 +11,7 @@ There are at least three fundamentally different kinds of such types:
 
 Limited-Precision Decimal
 -------------------------
-Basically the same as a IEEE 754 binary floating point, except that the exponent is interpreted as base 10. As a result, there are no unexpected rounding errors. Also, this kind of format is relatively compact and fast, but usually slower than binary formats.
+Basically the same as a IEEE 754 binary floating point, except that the exponent is interpreted as base 10. As a result, there are no unexpected [rounding errors](/errors/rounding/). Also, this kind of format is relatively compact and fast, but usually slower than binary formats.
 
 Arbitrary-Precision Decimal
 ---------------------------

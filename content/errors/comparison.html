@@ -2,7 +2,7 @@
 title: Comparison
 ---
 
-Due to rounding errors, most floating point numbers end up being slightly imprecise. As long as this
+Due to rounding errors, most [floating point](/format/fp/) numbers end up being slightly imprecise. As long as this
 imprecision stays small, it can usually be ignored. However, it also means that numbers expected
 to be equal (e.g. when calculating the same result through different correct methods) often differ
 slightly, and a simple equality test fails. For example:
@@ -26,7 +26,7 @@ Therefore, it is necessary to see whether the *relative error* is smaller than e
 	
 There is one important special case where this will fail: When both a and be are zero. 0.0/0.0 is "not a number", which returns false for all comparisons. So we have to take care of that first:
 
-		if( a==b || (a-b)/b < 0.00001 ) // correct, but bad design
+		if( a==b || (a-b)/b < 0.00001 ) // more correct, but bad design
 
 Since it's not immediately clear what this code does, it should be done in a function or method:
 
@@ -36,3 +36,5 @@ Since it's not immediately clear what this code does, it should be done in a fun
 		}
 
 		if(nearlyEqual(a,b))
+
+This is still not a perfect solution. Read the [Comparing floating point numbers](/references/) paper for more details.
