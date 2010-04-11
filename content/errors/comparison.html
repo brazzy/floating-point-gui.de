@@ -1,5 +1,38 @@
 --- 
-title: A New Item
+title: Comparison
 ---
 
-Hi, I'm a new item!
+Due to rounding errors, most floating point numbers end up being slightly imprecise. As long as this
+imprecision stays small, it can usually be ignored. However, it also means that numbers expected
+to be equal (e.g. when calculating the same result through different correct methods) often differ
+slightly, and a simple equality test fails. For example:
+
+		a = 0.1 + 0.2
+		b = 0.15 + 0.15
+		if(a == b) // can be false!
+
+The solution is to check not whether the numbers are exactly the same, but whether their difference is
+very small. The error margin that the difference is compared to is often called *epsilon*. 
+The most simple form:
+
+		if( a-b < 0.00001) // wrong - don't do this
+
+This is a bad way to do it because a fixed epsilon chosen because it "looks small" could actually be way too
+large when the numbers being compared are very small as well. The comparison would return "true" for numbers that are quite different. And when the numbers are very large, the epsilon
+could end up being smaller than the smallest rounding error, so that the comparison always returns "false".
+Therefore, it is necessary to see whether the *relative error* is smaller than epsilon:
+
+		if( (a-b)/b < 0.00001 ) // still not right!
+	
+There is one important special case where this will fail: When both a and be are zero. 0.0/0.0 is "not a number", which returns false for all comparisons. So we have to take care of that first:
+
+		if( a==b || (a-b)/b < 0.00001 ) // correct, but bad design
+
+Since it's not immediately clear what this code does, it should be done in a function or method:
+
+		function nearlyEqual(a,b)
+		{
+			return a==b || (a-b)/b < 0.00001;
+		}
+
+		if(nearlyEqual(a,b))

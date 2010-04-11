@@ -2,7 +2,9 @@
 title: Binary Fractions
 ---
 
-As a programmer, you are familiar with the concept of binary integers, i.e.
+How they work
+-------------
+As a programmer, you should be familiar with the concept of binary integers, i.e.
 the representation of integer numbers as a series of bits:
 
 <table>
@@ -51,14 +53,14 @@ This is how computers store integer numbers internally. And for fractional numbe
 <td class="digit">1</td><td>&sdot;</td><td>1/8</td>
 </tr></table>
 
-Both decimal and binary (and any other base as well) can represent only those fractions in a 
-finite positional notation where the denominator of the fraction has only prime factors that 
-also occur in the base. For example, in decimal 1/4, 3/5 and 8/20 are finite, because 2 and 5 are the prime factors of 10. But 1/3 is not finite, nor is 2/3 or 1/7 or 4/6, because 3 and 7 are not factors of 10.
+Problems
+--------
+While they work the same in principle, binary fractions are different from decimal fractions in what
+numbers they can accurately represent with a given number of digits, and thus also in what numbers result in rounding errors:
 
-Similarly, in binary only those fractions are finite that are a (finite) sum of negative
-powers of two. Unfortunately, this does not include most of the numbers that can be 
-represented as finite fration in base 10, like 0.1 - and there you are. Since computer 
-memory is limited, infinite fractions have to be cut off after some point:
+Specifically, binary can only represent those numbers as a finite fraction where the denominator
+is a power of 2. Unfortunately, this does not include most of the numbers that can be 
+represented as finite fration in base 10, like 0.1.
 
 | Fraction | Base | Positional Notation | Rounded to 4 digits| Rounded value as fraction | Rounding error |
 |-|-|-|-|
@@ -69,4 +71,15 @@ memory is limited, infinite fractions have to be cut off after some point:
 
 And this is how you already get a rounding error when you just *write down* a number like 0.1 and
 run it through your interpreter or compiler. It's not as big as 3/80 and may be invisible because
-computers cut off after 23 or 52 binary digits rather than 4. Which leads us to the next concept...
+computers cut off after 23 or 52 binary digits rather than 4. But the error is there and *will* cause
+problems eventually if you just ignore it.
+
+
+Why use Binary?
+---------------
+At the lowest level, computers are based on billions of electrical elements that have only two states, (usually low and high voltage). By interpreting these as 0 and 1, it's very easy to build circuits for storing binary numbers and doing calculations with them.
+
+While it's possible to simulate the behaviour of decimal numbers with binary circuits as well, it's less efficient. If computers used decimal numbers internally, they'd have less memory and be slower at the same level of technology. 
+
+Since the difference in behaviour between binary and decimal numbers is not important for most applications, the logical choice is to build computers based on binary numbers and live with the fact
+that some extra care and effort are necessary for applications that require decimal-like behaviour.

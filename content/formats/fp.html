@@ -1,3 +1,59 @@
 --- 
 title: Floating Point Numbers
 ---
+
+Why floating point numbers are needed
+-------------------------------------
+
+Since computer memory is limited, you cannot store numbers with infinite precision, no matter whether you use binary fractions or decimal ones: at some point you have to cut off. But how much accuracy is needed? And *where* is it needed? How many integer digits and how many fraction digits? 
+
+* To an engineer building a highway, it does not matter whether it's 10 meters or 10.0001 meters wide - his measurements are probably not that accurate in the first place.
+* To someone designing a microchip, 0.0001 meters (a tenth of a millimeter) is a *huge* difference - But he'll never have to deal with a distance larger than 10 centimeters.
+* A physicist needs to use the [speed of light](http://en.wikipedia.org/wiki/Speed_of_light)(about 300000000) and the [Newton's gravitational constant](http://en.wikipedia.org/wiki/Gravitational_constant)(about 0.0000000000667) together in the same calculation.
+ 
+To satisfy the engineer and the chip designer, a number format has to provide accuracy for numbers at very different magnitudes. However, only *relative* accuracy is needed. To satisfy the physicist, it must be possible to do calculations that involve numbers with different magnitudes.
+
+Basically, having a fixed number of integer and fractional digits is not useful - and the solution is a format with a *floating point*.
+
+How floating point numbers work
+-------------------------------
+The idea is to compose a number of two main parts:
+
+* A **significand** that contains the number's digits. Negative significands represent negative numbers.
+* An **exponent** that says where the decimal (or binary) point is placed relative to the beginning of the significand. Negative exponents represent numbers that are very small (i.e. close to zero).
+
+Such a format satisfies all the requirements:
+
+* It can represent numbers at wildly different magnitudes (limited by the length of the exponent)
+* It provides the same relative accuracy at all magnitudes (limited by the length of the significand)
+* It allows calculations across magnitudes: multiplying a very large and a very small number preserves the accuracy of both in the result.
+
+Decimal floating point numbers usually take the form of [scientific notation](http://en.wikipedia.org/wiki/Scientific_notation) with an
+explicit point always between the 1st and 2nd digits. The exponent is
+either written explicitly including the base, or an **e** is used to
+separate it from the significand.
+
+| Significand | Exponent | Scientific notation | Fixed-point value |
+|-------------|----------|---------------------|-------------------|
+| 1.5 | 4 | 1.5 &sdot; 10<sup>4</sup> | 15000 |
+| -2.001 | 2 | -2.001 &sdot; 10<sup>2</sup> | -200.1 |
+| 5 | -3 |  5 &sdot; 10<sup>-3</sup> | 0,005 | 
+| 6.667 | -11 | 6.667e-11 | 0.0000000000667 |
+
+The standard
+------------
+Nearly all hardware and programming languages use the same formats for floating point numbers, which are defined in the [IEEE 754](http://en.wikipedia.org/wiki/IEEE_754-2008) standard. The usual formats are 32 or 64 bits in total length:
+
+| Format | Total bits | Significand bits | Exponent bits | Smallest number | Largest number |
+|--------|------------|------------------|---------------|-----------------|----------------|
+| Single precision | 32 | 23 + 1 sign | 8  | ca. 1.2 &sdot; 10<sup>-38</sup> | ca. 3.4 &sdot; 10<sup>38</sup>|
+| Double precision | 64 | 52 + 1 sign | 11 | ca. 5.0 &sdot; 10<sup>-324</sup> | ca. 1.8 &sdot; 10<sup>308</sup> |
+
+Note that there are some peculiarities:
+
+* The **actual bit sequence** is the sign bit first, followed by the exponent and finally the significand bits.
+* The exponent does not have a sign; instead an **exponent bias** is subtracted from it (127 for single and 1023 for double precision). This, and the bit sequence, allows floating point numbers to be compared and sorted correctly even when interpreting them as integers.
+* The significand's most significant bit is assumed to be 1 and omitted, except for special cases.
+* There are separate **positive and a negative zero** values, differing in the sign bit, where all other bits are 0. These must be considered equal even though their bit patterns are different.
+* There are special **positive and negative infinity** values, where the exponent is all 1-bits and the significand is all 0-bits. These are the results of calculations where the positive range of the exponent is exceeded, or division  of a regular number by zero.
+* There are special **not a number** (or NaN) values where the exponent is all 1-bits and the significand is not all 0-bits. These represent the result of various undefined calculations (like multiplying 0 and infinity, any calculation involving a NaN value, or application-specific cases). Even bit-identical NaN values must *not* be considered equal.
