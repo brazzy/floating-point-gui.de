@@ -1,8 +1,8 @@
 ﻿--- 
-title: Floating Point Numbers
+title: Floating-Point Numbers
 ---
 
-Why floating point numbers are needed
+Why floating-point numbers are needed
 -------------------------------------
 
 Since computer memory is limited, you cannot store numbers with infinite precision, no matter whether you use [binary fractions](/formats/binary/) or decimal ones: at some point you have to cut off. But how much accuracy is needed? And *where* is it needed? How many integer digits and how many fraction digits? 
@@ -15,7 +15,7 @@ To satisfy the engineer and the chip designer, a number format has to provide ac
 
 Basically, having a fixed number of integer and fractional digits is not useful - and the solution is a format with a *floating point*.
 
-How floating point numbers work
+How floating-point numbers work
 -------------------------------
 The idea is to compose a number of two main parts:
 
@@ -28,7 +28,7 @@ Such a format satisfies all the requirements:
 * It provides the same relative accuracy at all magnitudes (limited by the length of the significand)
 * It allows calculations across magnitudes: multiplying a very large and a very small number preserves the accuracy of both in the result.
 
-Decimal floating point numbers usually take the form of [scientific notation](http://en.wikipedia.org/wiki/Scientific_notation) with an
+Decimal floating-point numbers usually take the form of [scientific notation](http://en.wikipedia.org/wiki/Scientific_notation) with an
 explicit point always between the 1st and 2nd digits. The exponent is
 either written explicitly including the base, or an **e** is used to
 separate it from the significand.
@@ -42,7 +42,7 @@ separate it from the significand.
 
 The standard
 ------------
-Nearly all hardware and programming languages use floating point numbers in the same binary formats, which are defined in the [IEEE 754](http://en.wikipedia.org/wiki/IEEE_754-2008) standard. The usual formats are 32 or 64 bits in total length:
+Nearly all hardware and programming languages use floating-point numbers in the same binary formats, which are defined in the [IEEE 754](http://en.wikipedia.org/wiki/IEEE_754-2008) standard. The usual formats are 32 or 64 bits in total length:
 
 | Format | Total bits | Significand bits | Exponent bits | Smallest number | Largest number |
 |--------|------------|------------------|---------------|-----------------|----------------|
@@ -52,7 +52,7 @@ Nearly all hardware and programming languages use floating point numbers in the 
 Note that there are some peculiarities:
 
 * The **actual bit sequence** is the sign bit first, followed by the exponent and finally the significand bits.
-* The exponent does not have a sign; instead an **exponent bias** is subtracted from it (127 for single and 1023 for double precision). This, and the bit sequence, allows floating point numbers to be compared and sorted correctly even when interpreting them as integers.
+* The exponent does not have a sign; instead an **exponent bias** is subtracted from it (127 for single and 1023 for double precision). This, and the bit sequence, allows floating-point numbers to be compared and sorted correctly even when interpreting them as integers.
 * The significand's most significant bit is assumed to be 1 and omitted, except for special cases.
 * There are separate **positive and a negative zero** values, differing in the sign bit, where all other bits are 0. These must be considered equal even though their bit patterns are different.
 * There are special **positive and negative infinity** values, where the exponent is all 1-bits and the significand is all 0-bits. These are the results of calculations where the positive range of the exponent is exceeded, or division  of a regular number by zero.
