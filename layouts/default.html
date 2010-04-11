@@ -7,10 +7,15 @@
 	<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
     <meta name="generator" content="nanoc 3.1.2">
   </head>
-  <body>
+  <body>  
     <div id="main">
 		<h1><%= @item[:title] %></h1>
       <%= yield %>
+	  
+		<div id="license">
+			<p>&copy; Published at <a href="http://floating-point-gui.de/">floating-point-gui.de</a> under the 
+			<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License (BY)</a></p>
+		</div>
     </div>
     <div id="sidebar">
 		<img src="/logo.png">
@@ -43,12 +48,9 @@
 			<li><a href="/languages/java/">Java</a></li>
 			<li><a href="/languages/javascript/">JavaScript</a></li>
 			<li><a href="/languages/php/">PHP</a></li>
-			<li><a href="/languages/sql/">SQL</a></li>
 		</ul>
     </div>
-	<div id="license">
-		<p>Published at <a href="http://floating-point-gui.de/">floating-point-gui.de</a> under the 
-		<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License (BY)</a></p>
-	</div>
+<a href="http://github.com/brazzy/floating-point-gui.de"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+
   </body>
 </html>
