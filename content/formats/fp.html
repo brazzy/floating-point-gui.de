@@ -8,8 +8,8 @@ Why floating-point numbers are needed
 Since computer memory is limited, you cannot store numbers with infinite precision, no matter whether you use [binary fractions](/formats/binary/) or decimal ones: at some point you have to cut off. But how much accuracy is needed? And *where* is it needed? How many integer digits and how many fraction digits? 
 
 * To an engineer building a highway, it does not matter whether it's 10 meters or 10.0001 meters wide - his measurements are probably not that accurate in the first place.
-* To someone designing a microchip, 0.0001 meters (a tenth of a millimeter) is a *huge* difference - But he'll never have to deal with a distance larger than 10 centimeters.
-* A physicist needs to use the [speed of light](http://en.wikipedia.org/wiki/Speed_of_light)(about 300000000) and the [Newton's gravitational constant](http://en.wikipedia.org/wiki/Gravitational_constant)(about 0.0000000000667) together in the same calculation.
+* To someone designing a microchip, 0.0001 meters (a tenth of a millimeter) is a *huge* difference - But he'll never have to deal with a distance larger than 0.1 meters.
+* A physicist needs to use the [speed of light](http://en.wikipedia.org/wiki/Speed_of_light) (about 300000000) and [Newton's gravitational constant](http://en.wikipedia.org/wiki/Gravitational_constant) (about 0.0000000000667) together in the same calculation.
  
 To satisfy the engineer and the chip designer, a number format has to provide accuracy for numbers at very different magnitudes. However, only *relative* accuracy is needed. To satisfy the physicist, it must be possible to do calculations that involve numbers with different magnitudes.
 
