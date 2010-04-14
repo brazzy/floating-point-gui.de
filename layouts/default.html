@@ -3,8 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title>The Floating-Point Guide - <%= @item[:title] %></title>
-	<meta name="google-site-verification" content="SoYmbsJEmSz2s1LmZk_cku4pKwhRsU6m0ZOTgGdnTL0" />
+	<% if @item[:verification] %>
+		<meta name="google-site-verification" content="SoYmbsJEmSz2s1LmZk_cku4pKwhRsU6m0ZOTgGdnTL0" />
+	<% end %>
     <meta name="generator" content="nanoc 3.1.2">
+	<% if @item[:description] %>
+		<meta name="Description" content="<%= @item[:description] %>">
+	<% end %>
     <link rel="stylesheet" type="text/css" href="/style.css" media="screen">
 	<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
   </head>

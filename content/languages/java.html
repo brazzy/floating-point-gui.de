@@ -1,5 +1,6 @@
 --- 
 title: How to deal with floating-point numbers in Java
+description: Tips for using floating-point numbers in Java
 --- 
 
 Floating-Point Types
@@ -11,7 +12,7 @@ Java has [IEEE 754](/formats/fp/) single and double precision types supported by
 Decimal Types
 -------------
 Java has an [arbitrary-precision](/formats/exact/) decimal type named <code>java.math.BigDecimal</code>, which
-also allows to choose the rounding mode:
+also allows to choose the rounding mode.
 	BigDecimal a = new BigDecimal("0.1");
 	BigDecimal b = new BigDecimal("0.2");
 	BigDecimal c = a.add(b); // returns a BigDecimal representing exactly 0.3
