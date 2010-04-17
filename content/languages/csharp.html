@@ -19,7 +19,10 @@ C# has a 128 bit [limited-precision](/formats/exact/) decimal type denoted by th
 
 How to Round
 ------------
-TODO
+The <code>Math.Round()</code> method works with the double and decimal types, and allows you to specify a [rounding mode](/errors/rounding/):
+
+		Math.Round(1.25m, 1, MidpointRounding.AwayFromZero); // returns 1.3
+
 
 
 Resources 

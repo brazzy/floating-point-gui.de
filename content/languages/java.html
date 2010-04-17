@@ -12,23 +12,25 @@ Java has [IEEE 754](/formats/fp/) single and double precision types supported by
 Decimal Types
 -------------
 Java has an [arbitrary-precision](/formats/exact/) decimal type named <code>java.math.BigDecimal</code>, which
-also allows to choose the rounding mode.
-	BigDecimal a = new BigDecimal("0.1");
-	BigDecimal b = new BigDecimal("0.2");
-	BigDecimal c = a.add(b); // returns a BigDecimal representing exactly 0.3
+also allows to choose the [rounding mode](/errors/rounding/).
+		BigDecimal a = new BigDecimal("0.1");
+		BigDecimal b = new BigDecimal("0.2");
+		BigDecimal c = a.add(b); // returns a BigDecimal representing exactly 0.3
 
 
 How to Round
 ------------
 To get a String:
-	String.format("%.2f", 1.2399) // returns "1.24"
-	String.format("%.3f", 1.2399) // returns "1.240"
-	String.format("%.2f", 1.2) // returns "1.20"
+		String.format("%.2f", 1.2399) // returns "1.24"
+		String.format("%.3f", 1.2399) // returns "1.240"
+		String.format("%.2f", 1.2) // returns "1.20"
 To print to standard output (or any <code>PrintStream</code>):
-	System.out.printf("%.2f", 1.2399) // same syntax as String.format()
+		System.out.printf("%.2f", 1.2399) // same syntax as String.format()
 If you don't want trailing zeroes:
-	new DecimalFormat("0.00").format(1.2)// returns "1.20"
-	new DecimalFormat("0.##").format(1.2)// returns "1.2"
+		new DecimalFormat("0.00").format(1.2)// returns "1.20"
+		new DecimalFormat("0.##").format(1.2)// returns "1.2"
+If you need a specific [rounding mode](/errors/rounding/):
+		new BigDecimal("1.25").setScale(1, RoundingMode.HALF_EVEN); // returns 1.2
 
 
 Resources 

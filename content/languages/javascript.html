@@ -11,7 +11,12 @@ JavaScript is dynamically typed and will often convert implicitly between string
 Decimal Types
 -------------
 
-TODO: is there a standard or widely used JS bignum/decimal library?
+The best decimal type for JavaScript seems to be a port of [Java's](/languages/java/) <code>BigDecimal</code> class, which also supports [rounding modes](/errors/rounding/):
+		var a = new BigDecimal("0.01");
+		var b = new BigDecimal("0.02");
+		var c = a.add(b); // 0.03
+		var d = c.setScale(1, BigDecimal.prototype.ROUND_HALF_UP);
+
 
 How to Round
 ------------
@@ -19,12 +24,13 @@ How to Round
 		num.toPrecision(1) //returns 5 as string
 		num.toPrecision(2) //returns 5.1 as string
 		num.toPrecision(4) //returns 5.123 as string
-
-TODO: talk about rounding modes; Firefox JavaScript seems to use round-half-odd
+Using a specific rounding mode:
+		new BigDecimal("1.25").setScale(1, BigDecimal.prototype.ROUND_HALF_UP);
 
 
 Resources 
 ---------
+[BigDecimal for JavaScript](http://stz-ida.de/html/oss/js_bigdecimal.html.en)
 [Core JavaScript Reference](https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference)  
 
 
