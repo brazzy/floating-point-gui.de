@@ -8,9 +8,10 @@ imprecision stays small, it can usually be ignored. However, it also means that 
 to be equal (e.g. when calculating the same result through different correct methods) often differ
 slightly, and a simple equality test fails. For example:
 
-		a = 0.1 + 0.2
-		b = 0.15 + 0.15
+		a = 0.15 + 0.15
+		b = 0.1 + 0.2
 		if(a == b) // can be false!
+		if(a >= b) // can also be false!
 
 Don't use absolute error margins
 --------------------------------
@@ -31,8 +32,8 @@ Look out for edge cases
 -----------------------
 There are some important special cases where this will fail: 
 
-* When both `a` and `b` are zero. `0.0/0.0` is "not a number", which returns false for all comparisons. 
-* When only `b` is zero, the division yields "infinity", which is greater than epsilon even when `a` is smaller. 
+* When both `a` and `b` are zero. `0.0/0.0` is "not a number", which causes an exception on some platforms, or returns false for all comparisons. 
+* When only `b` is zero, the division yields "infinity", which may also cause an exception, or is greater than epsilon even when `a` is smaller. 
 
 Also, the result is not commutative (`nearlyEquals(a,b)` is not always the same as `nearlyEquals(b,a)`). To fix these problems, the code has to get a lot more complex, so we really need to put it into a function of its own:
 
