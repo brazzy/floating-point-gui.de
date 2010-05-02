@@ -7,7 +7,8 @@ Floating-Point Types
 --------
 Java has [IEEE 754](/formats/fp/) single and double precision types supported by keywords:
 		float f = 0.1f; // 32 bit float, note f suffix
-		double d = 0.1; // 64 bit float, suffix optional
+		double d = 0.1d; // 64 bit float, suffix optional
+The `strictfp` keyword on classes, interfaces and methods forces all intermediate results of floating-point calculations to be IEEE 754 values as well, guaranteeing identical results on all platforms. Without that keyword, implementations can use an extended exponent range where available, resulting in more precise results and faster execution on many common CPUs.
 		
 Decimal Types
 -------------
@@ -35,5 +36,5 @@ If you need a specific [rounding mode](/errors/rounding/):
 
 Resources 
 ---------
-[Java Language Specification](http://java.sun.com/docs/books/jls/third_edition/html/j3TOC.html)  
-[Java Standard API](http://java.sun.com/javase/6/docs/api/)  
+* [Java Language Specification](http://java.sun.com/docs/books/jls/third_edition/html/j3TOC.html)  
+* [Java Standard API](http://java.sun.com/javase/6/docs/api/)  
