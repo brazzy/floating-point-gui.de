@@ -12,6 +12,8 @@ slightly, and a simple equality test fails. For example:
 		b = 0.15 + 0.15
 		if(a == b) // can be false!
 
+Don't use absolute error margins
+--------------------------------
 The solution is to check not whether the numbers are exactly the same, but whether their difference is
 very small. The error margin that the difference is compared to is often called *epsilon*. 
 The most simple form:
@@ -24,18 +26,40 @@ could end up being smaller than the smallest rounding error, so that the compari
 Therefore, it is necessary to see whether the *relative error* is smaller than epsilon:
 
 		if( Math.abs((a-b)/b) < 0.00001 ) // still not right!
-	
-There is one important special case where this will fail: When both a and be are zero. 0.0/0.0 is "not a number", which returns false for all comparisons. So we have to take care of that first:
 
-		if( a==b || Math.abs((a-b)/b) < 0.00001 ) // more correct, but bad design
+Look out for edge cases
+-----------------------
+There are some important special cases where this will fail: 
 
-Since it's not immediately clear what this code does, it should be done in a function or method:
+* When both `a` and `b` are zero. `0.0/0.0` is "not a number", which returns false for all comparisons. 
+* When only `b` is zero, the division yields "infinity", which is greater than epsilon even when `a` is smaller. 
+
+Also, the result is not commutative (`nearlyEquals(a,b)` is not always the same as `nearlyEquals(b,a)`). To fix these problems, the code has to get a lot more complex, so we really need to put it into a function of its own:
 
 		function nearlyEqual(a,b)
 		{
-			return a==b || Math.abs((a-b)/b) < 0.00001;
+			epsilon = 0.00001;
+			if (a==0.0){ 
+				return Math.abs(b) < epsilon;
+			else if (b==0.0){ 
+				return Math.abs(a) < epsilon;
+			} else { // ensure commutativity
+				return Math.abs((a-b)/a) < epsilon &&
+					   Math.abs((b-a)/b) < epsilon;
+			}
 		}
 
 		if(nearlyEqual(a,b))
 
-This is still not a perfect solution. Read the [Comparing floating-point numbers](/references/) paper for more details.
+Unfortunately, this is *still* not perfect; there are at least two problems that are not easy to fix:
+
+* It reverts to using epsilon as an absolute error measure when `a` or `b` is zero.
+* It returns `false` when both `a` and `b` are very small but on opposite sides of zero, even when they're the smallest possible non-zero numbers.
+
+Compare floating-point values as integers
+-----------------------------------------
+But the there is an alternative to adding even more conceptual complexity to such an apparently simple task: instead of comparing `a` and `b` as [real numbers](http://en.wikipedia.org/wiki/Real_numbers), we can think about them as discrete steps and define the error margin as the maximum number of possible floating-point values between the two values. 
+
+This is conceptually very clear and easy and has the advantage of implicitly scaling the relative error margin with the magnitude of the values. Technically, it's a bit more complex, but not as much as you might think, because IEEE 754 floats are designed to maintain their order when their bit patters are interpreted as integers.
+
+However, this method does require the programming language to support conversion between floating-point values and integer bit patters. Read the [Comparing floating-point numbers](/references/) paper for more details.
