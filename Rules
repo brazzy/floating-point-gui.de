@@ -10,36 +10,22 @@
 #   item, use the pattern “/about/*/”; “/about/*” will also select the parent,
 #   because “*” matches zero or more characters.
 
-compile '/stylesheet/' do
-  # don’t filter or layout
-end
-
-compile '/favicon/' do
-  # don’t filter or layout
-end
-compile '/logo/' do
-  # don’t filter or layout
-end
-
 compile '*' do
-  filter :erb
-  filter :kramdown
-  layout 'default'
-end
-
-route '/stylesheet/' do
-  '/style.css'
-end
-
-route '/favicon/' do
-  '/favicon.ico'
-end
-route '/logo/' do
-  '/logo.png'
+  case item[:extension]
+    when 'html'
+	  filter :erb
+	  filter :kramdown
+	  layout 'default'
+  end
 end
 
 route '*' do
-  item.identifier + 'index.html'
+  case item[:extension]
+    when 'html'
+		item.identifier + 'index.html'
+	else
+		item.identifier.chop + '.' + item[:extension]
+  end
 end
 
 layout '*', :erb
