@@ -42,7 +42,7 @@ Also, the result is not commutative (`nearlyEquals(a,b)` is not always the same 
 			epsilon = 0.00001;
 			if (a==0.0){ 
 				return Math.abs(b) < epsilon;
-			else if (b==0.0){ 
+			}else if (b==0.0){ 
 				return Math.abs(a) < epsilon;
 			} else { // ensure commutativity
 				return Math.abs((a-b)/a) < epsilon &&
