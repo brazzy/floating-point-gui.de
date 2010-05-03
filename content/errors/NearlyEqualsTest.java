@@ -4,8 +4,14 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
- * Demonstrates a good method for comparing floating-point values
- * using an epsilon. Run via JUnit 4
+ * Test suite to demonstrate a good method for comparing
+ * floating-point values using an epsilon. Run via JUnit 4.
+ *
+ * Note: this function attempts a "one size fits all" solution. There
+ * may be some edge cases for which it still produces unexpected results,
+ * and some of the tests it was developed to pass probably specify behaviour
+ * that is not appropriate for some applications. Before using it, make
+ * sure it's appropriate for your application!
  *
  * From http://floating-point-gui.de
  *
@@ -13,9 +19,8 @@ import org.junit.Test;
  */
 public class NearlyEqualsTest
 {
-    public static boolean nearlyEqual(float a, float b)
+    public static boolean nearlyEqual(float a, float b, float epsilon)
     {
-        final float epsilon = 0.000001f;
         final float absA = Math.abs(a);
         final float absB = Math.abs(b);
         final float diff = Math.abs(a-b);
@@ -26,6 +31,11 @@ public class NearlyEqualsTest
         } else { // use relative error
             return diff / (absA+absB) < epsilon;
         }
+    }
+
+    public static boolean nearlyEqual(float a, float b)
+    {
+        return nearlyEqual(a, b, 0.000001f);
     }
 
     /** Regular large numbers - generally not problematic */

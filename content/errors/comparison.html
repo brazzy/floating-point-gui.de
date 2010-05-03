@@ -38,9 +38,8 @@ There are some important special cases where this will fail:
 
 Also, the result is not commutative (`nearlyEquals(a,b)` is not always the same as `nearlyEquals(b,a)`). To fix these problems, the code has to get a lot more complex, so we really need to put it into a function of its own:
 
-	    public static boolean nearlyEqual(float a, float b)
+	    public static boolean nearlyEqual(float a, float b, float epsilon)
 	    {
-	        float epsilon = 0.000001f;
 	        float absA = Math.abs(a);
 	        float absB = Math.abs(b);
 	        float diff = Math.abs(a-b);
