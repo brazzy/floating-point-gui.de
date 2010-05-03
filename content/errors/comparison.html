@@ -8,8 +8,8 @@ imprecision stays small, it can usually be ignored. However, it also means that 
 to be equal (e.g. when calculating the same result through different correct methods) often differ
 slightly, and a simple equality test fails. For example:
 
-		a = 0.15 + 0.15
-		b = 0.1 + 0.2
+		float a = 0.15 + 0.15
+		float b = 0.1 + 0.2
 		if(a == b) // can be false!
 		if(a >= b) // can also be false!
 
@@ -34,32 +34,35 @@ There are some important special cases where this will fail:
 
 * When both `a` and `b` are zero. `0.0/0.0` is "not a number", which causes an exception on some platforms, or returns false for all comparisons. 
 * When only `b` is zero, the division yields "infinity", which may also cause an exception, or is greater than epsilon even when `a` is smaller. 
+* It returns `false` when both `a` and `b` are very small but on opposite sides of zero, even when they're the smallest possible non-zero numbers.
 
 Also, the result is not commutative (`nearlyEquals(a,b)` is not always the same as `nearlyEquals(b,a)`). To fix these problems, the code has to get a lot more complex, so we really need to put it into a function of its own:
 
-		function nearlyEqual(a,b)
-		{
-			epsilon = 0.00001;
-			if (a==0.0){ 
-				return Math.abs(b) < epsilon;
-			}else if (b==0.0){ 
-				return Math.abs(a) < epsilon;
-			} else { // ensure commutativity
-				return Math.abs((a-b)/a) < epsilon &&
-					   Math.abs((b-a)/b) < epsilon;
-			}
-		}
+	    public static boolean nearlyEqual(float a, float b)
+	    {
+	        float epsilon = 0.000001f;
+	        float absA = Math.abs(a);
+	        float absB = Math.abs(b);
+	        float diff = Math.abs(a-b);
 
-		if(nearlyEqual(a,b))
+	        if (a*b==0) { // a or b or both are zero
+	            // relative error is not meaningful here
+	            return diff < Float.MIN_VALUE / epsilon;
+	        } else { // use relative error
+	            return diff / (absA+absB) < epsilon;
+	        }
+	    }
 
-Unfortunately, this is *still* not perfect; there are at least two problems that are not easy to fix:
+This method [passes tests](../NearlyEqualsTest.java) for many important special cases, but as you can see, it
+uses some quite non-obvious logic. In particular, it has to use a completely different definition of error margin
+when `a` or `b` is zero, because the classical definition of relative error becomes meaningless in those cases.
 
-* It reverts to using epsilon as an absolute error measure when `a` or `b` is zero.
-* It returns `false` when both `a` and `b` are very small but on opposite sides of zero, even when they're the smallest possible non-zero numbers.
+There probably are some cases where the method above still produces unexpected results, and some of the tests
+it was developed to pass probably specify behaviour that is not appropriate for some applications. Before using it, make sure it's appropriate for your application!
 
-Compare floating-point values as integers
------------------------------------------
-But the there is an alternative to adding even more conceptual complexity to such an apparently simple task: instead of comparing `a` and `b` as [real numbers](http://en.wikipedia.org/wiki/Real_numbers), we can think about them as discrete steps and define the error margin as the maximum number of possible floating-point values between the two values. 
+Comparing floating-point values as integers
+-------------------------------------------
+There is an alternative to heaping conceptual complexity onto such an apparently simple task: instead of comparing `a` and `b` as [real numbers](http://en.wikipedia.org/wiki/Real_numbers), we can think about them as discrete steps and define the error margin as the maximum number of possible floating-point values between the two values. 
 
 This is conceptually very clear and easy and has the advantage of implicitly scaling the relative error margin with the magnitude of the values. Technically, it's a bit more complex, but not as much as you might think, because IEEE 754 floats are designed to maintain their order when their bit patterns are interpreted as integers.
 
