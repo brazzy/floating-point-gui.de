@@ -61,6 +61,6 @@ Compare floating-point values as integers
 -----------------------------------------
 But the there is an alternative to adding even more conceptual complexity to such an apparently simple task: instead of comparing `a` and `b` as [real numbers](http://en.wikipedia.org/wiki/Real_numbers), we can think about them as discrete steps and define the error margin as the maximum number of possible floating-point values between the two values. 
 
-This is conceptually very clear and easy and has the advantage of implicitly scaling the relative error margin with the magnitude of the values. Technically, it's a bit more complex, but not as much as you might think, because IEEE 754 floats are designed to maintain their order when their bit patters are interpreted as integers.
+This is conceptually very clear and easy and has the advantage of implicitly scaling the relative error margin with the magnitude of the values. Technically, it's a bit more complex, but not as much as you might think, because IEEE 754 floats are designed to maintain their order when their bit patterns are interpreted as integers.
 
-However, this method does require the programming language to support conversion between floating-point values and integer bit patters. Read the [Comparing floating-point numbers](/references/) paper for more details.
+However, this method does require the programming language to support conversion between floating-point values and integer bit patterns. Read the [Comparing floating-point numbers](/references/) paper for more details.

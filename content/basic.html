@@ -34,10 +34,10 @@ That depends on what kind of calculations you're doing.
 ### Why do other calculations like 0.1 + 0.4 work correctly?
 
 In that case, the result (0.5) *can* be represented exactly as a floating-point number,
-and it's possible for rounding errors in the input numbers to cancel each other out.
-Even that can't necessarily be relied upon though. If for example those two numbers
-were stored in differently sized floating point representations first, and then added
-together, the rounding errors might not have offset each other perfectly.
+and it's possible for rounding errors in the input numbers to cancel each other out -
+But that can't necessarily be relied upon (e.g. when those two numbers
+were stored in differently sized floating point representations first, the rounding 
+errors might not offset each other).
 
 In other cases like 0.1 + 0.3, the result actually isn't *really* 0.4, but close enough that 0.4 
 is the shortest number that is closer to the result than to any other floating-point number. Many languages then display that number instead of converting the actual result back to the closest
