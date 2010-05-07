@@ -42,7 +42,7 @@ using a better rounding mode. The most common rounding modes are:
 * **Rounding half to even** also known as **banker's rounding** - if the truncated fraction is 
   greater than half the base,
   increase the last remaining digit. If it is equal to half the base, increase the digit only
-  if it's not even. This minimizes errors and bias, and is therefore preferred for bookkeeping.
+  if that produces an even result. This minimizes errors and bias, and is therefore preferred for bookkeeping.
 
 Examples in base 10:
 |      | Towards zero | Half away from zero | Half to even |
