@@ -1,4 +1,4 @@
-http://floating-point.gui.de aims to provide both short and simple 
+http://floating-point-gui.de aims to provide both short and simple 
 answers to the common recurring questions of novice programmers
 about floating-point numbers not "adding up" correctly, and
 more in-depth information about how IEEE 754 floats work,
