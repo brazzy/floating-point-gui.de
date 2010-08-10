@@ -6,7 +6,7 @@ when and how to use them correctly, and what to use instead
 when they are not appropriate.
 
 The site is built using the nanoc static site generator:
-http://nanoc.stoneship.org/
+http://nanoc.stoneship.org/ (Requires the kramdown and adsf gems)
 
 and published under the Creative Commons Attribution License (BY):
 http://creativecommons.org/licenses/by/3.0/
