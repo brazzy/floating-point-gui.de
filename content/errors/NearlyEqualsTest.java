@@ -4,14 +4,17 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
- * Test suite to demonstrate a good method for comparing floating-point values using an epsilon. Run via JUnit 4.
- *
- * Note: this function attempts a "one size fits all" solution. There may be some edge cases for which it still
- * produces unexpected results, and some of the tests it was developed to pass probably specify behaviour that is
- * not appropriate for some applications. Before using it, make sure it's appropriate for your application!
- *
+ * Test suite to demonstrate a good method for comparing floating-point values
+ * using an epsilon. Run via JUnit 4.
+ * 
+ * Note: this function attempts a "one size fits all" solution. There may be
+ * some edge cases for which it still produces unexpected results, and some of
+ * the tests it was developed to pass probably specify behaviour that is not
+ * appropriate for some applications. Before using it, make sure it's
+ * appropriate for your application!
+ * 
  * From http://floating-point-gui.de
- *
+ * 
  * @author Michael Borgwardt
  */
 public class NearlyEqualsTest {
@@ -20,7 +23,9 @@ public class NearlyEqualsTest {
         final float absB = Math.abs(b);
         final float diff = Math.abs(a - b);
 
-        if (a * b == 0) { // a or b or both are zero
+        if (a == b) { // shortcut, handles infinities
+            return true;
+        } else if (a * b == 0) { // a or b or both are zero
             // relative error is not meaningful here
             return diff < (epsilon * epsilon);
         } else { // use relative error
@@ -108,6 +113,27 @@ public class NearlyEqualsTest {
         assertFalse(nearlyEqual(0.0f, -0.00000001f, 0.00000001f));
     }
 
+    /**
+     * Comparisons involving infinities
+     */
+    @Test
+    public void infinities() {
+        assertTrue(nearlyEqual(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY));
+        assertTrue(nearlyEqual(Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY));
+        assertFalse(nearlyEqual(Float.NEGATIVE_INFINITY,
+                Float.POSITIVE_INFINITY));
+        assertFalse(nearlyEqual(Float.POSITIVE_INFINITY, Float.MAX_VALUE));
+        assertFalse(nearlyEqual(Float.NEGATIVE_INFINITY, -Float.MAX_VALUE));
+    }
+
+    /**
+     * Comparisons involving NaN values
+     */
+    @Test
+    public void nan() {
+        assertFalse(nearlyEqual(Float.NaN, Float.NaN));
+    }
+
     /** Comparisons of numbers on opposite sides of 0 */
     @Test
     public void opposite() {
@@ -115,7 +141,8 @@ public class NearlyEqualsTest {
         assertFalse(nearlyEqual(-1.0f, 1.000000001f));
         assertFalse(nearlyEqual(-1.000000001f, 1.0f));
         assertFalse(nearlyEqual(1.0f, -1.000000001f));
-        assertTrue(nearlyEqual(1e10f * Float.MIN_VALUE, -1e10f * Float.MIN_VALUE));
+        assertTrue(nearlyEqual(1e10f * Float.MIN_VALUE, -1e10f
+                * Float.MIN_VALUE));
     }
 
     /**
@@ -137,11 +164,13 @@ public class NearlyEqualsTest {
 
         assertFalse(nearlyEqual(1e25f * Float.MIN_VALUE, 0.0f, 1e-12f));
         assertFalse(nearlyEqual(0.0f, 1e25f * Float.MIN_VALUE, 1e-12f));
-        assertFalse(nearlyEqual(1e25f * Float.MIN_VALUE, -1e25f * Float.MIN_VALUE, 1e-12f));
+        assertFalse(nearlyEqual(1e25f * Float.MIN_VALUE, -1e25f
+                * Float.MIN_VALUE, 1e-12f));
 
         assertTrue(nearlyEqual(1e25f * Float.MIN_VALUE, 0.0f, 1e-5f));
         assertTrue(nearlyEqual(0.0f, 1e25f * Float.MIN_VALUE, 1e-5f));
-        assertTrue(nearlyEqual(1e20f * Float.MIN_VALUE, -1e20f * Float.MIN_VALUE, 1e-5f));
+        assertTrue(nearlyEqual(1e20f * Float.MIN_VALUE, -1e20f
+                * Float.MIN_VALUE, 1e-5f));
     }
 
 }

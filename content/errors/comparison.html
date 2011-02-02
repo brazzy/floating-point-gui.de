@@ -44,7 +44,9 @@ Also, the result is not commutative (`nearlyEquals(a,b)` is not always the same 
 	        final float absB = Math.abs(b);
 	        final float diff = Math.abs(a - b);
 
-	        if (a * b == 0) { // a or b or both are zero
+	        if (a == b) { // shortcut, handles infinities
+	            return true;
+	        } else if (a * b == 0) { // a or b or both are zero
 	            // relative error is not meaningful here
 	            return diff < (epsilon * epsilon);
 	        } else { // use relative error
