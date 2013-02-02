@@ -53,6 +53,10 @@ span.over {
 	text-decoration: overline;
 }
 
+a img {
+	border: none;
+}
+
 #main {
   position: absolute;
 

@@ -10,7 +10,7 @@
 	<% if @item[:description] %>
 		<meta name="Description" content="<%= @item[:description] %>">
 	<% end %>
-    <link rel="stylesheet" type="text/css" href="/style.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="/style.css?v1" media="screen">
 	<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
 	<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
   </head>
@@ -29,7 +29,8 @@
 		<img src="/logo.png">
 		<h2>The Floating-Point Guide</h2>
 		<ul>
-		<li><a href="/">Home</a></li>
+			<li><a href="http://puntoflotante.org/" alt="en Espa&ntilde;ol"><img src="/es.png"></a></li>
+			<li><a href="/">Home</a></li>
 			<li><a href="/basic/">Basic Answers</a></li>
 			<li><a href="/references/">References</a></li>
 			<li><a href="/xkcd/">xkcd</a></li>
