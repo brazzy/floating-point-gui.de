@@ -25,16 +25,17 @@ public class NearlyEqualsTest {
 
         if (a == b) { // shortcut, handles infinities
             return true;
-        } else if (a * b == 0) { // a or b or both are zero
-            // relative error is not meaningful here
-            return diff < (epsilon * epsilon);
+        } else if (a == 0 || b == 0 || diff < Float.MIN_NORMAL) {
+            // a or b is zero or both are extremely close to it
+            // relative error is less meaningful here
+            return diff < (epsilon * Float.MIN_NORMAL);
         } else { // use relative error
             return diff / (absA + absB) < epsilon;
         }
     }
 
     public static boolean nearlyEqual(float a, float b) {
-        return nearlyEqual(a, b, 0.000001f);
+        return nearlyEqual(a, b, 0.00001f);
     }
 
     /** Regular large numbers - generally not problematic */
@@ -102,15 +103,15 @@ public class NearlyEqualsTest {
         assertFalse(nearlyEqual(-0.00000001f, 0.0f));
         assertFalse(nearlyEqual(0.0f, -0.00000001f));
 
-        assertTrue(nearlyEqual(0.0f, 0.00000001f, 0.01f));
-        assertTrue(nearlyEqual(0.00000001f, 0.0f, 0.01f));
-        assertFalse(nearlyEqual(0.00000001f, 0.0f, 0.000001f));
-        assertFalse(nearlyEqual(0.0f, 0.00000001f, 0.000001f));
+        assertTrue(nearlyEqual(0.0f, 1e-40f, 0.01f));
+        assertTrue(nearlyEqual(1e-40f, 0.0f, 0.01f));
+        assertFalse(nearlyEqual(1e-40f, 0.0f, 0.000001f));
+        assertFalse(nearlyEqual(0.0f, 1e-40f, 0.000001f));
 
-        assertTrue(nearlyEqual(0.0f, -0.00000001f, 0.1f));
-        assertTrue(nearlyEqual(-0.00000001f, 0.0f, 0.1f));
-        assertFalse(nearlyEqual(-0.00000001f, 0.0f, 0.00000001f));
-        assertFalse(nearlyEqual(0.0f, -0.00000001f, 0.00000001f));
+        assertTrue(nearlyEqual(0.0f, -1e-40f, 0.1f));
+        assertTrue(nearlyEqual(-1e-40f, 0.0f, 0.1f));
+        assertFalse(nearlyEqual(-1e-40f, 0.0f, 0.00000001f));
+        assertFalse(nearlyEqual(0.0f, -1e-40f, 0.00000001f));
     }
 
     /**
@@ -120,8 +121,7 @@ public class NearlyEqualsTest {
     public void infinities() {
         assertTrue(nearlyEqual(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY));
         assertTrue(nearlyEqual(Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY));
-        assertFalse(nearlyEqual(Float.NEGATIVE_INFINITY,
-                Float.POSITIVE_INFINITY));
+        assertFalse(nearlyEqual(Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY));
         assertFalse(nearlyEqual(Float.POSITIVE_INFINITY, Float.MAX_VALUE));
         assertFalse(nearlyEqual(Float.NEGATIVE_INFINITY, -Float.MAX_VALUE));
     }
@@ -132,6 +132,22 @@ public class NearlyEqualsTest {
     @Test
     public void nan() {
         assertFalse(nearlyEqual(Float.NaN, Float.NaN));
+        assertFalse(nearlyEqual(Float.NaN, 0.0f));
+        assertFalse(nearlyEqual(-0.0f, Float.NaN));
+        assertFalse(nearlyEqual(Float.NaN, -0.0f));
+        assertFalse(nearlyEqual(0.0f, Float.NaN));
+        assertFalse(nearlyEqual(Float.NaN, Float.POSITIVE_INFINITY));
+        assertFalse(nearlyEqual(Float.POSITIVE_INFINITY, Float.NaN));
+        assertFalse(nearlyEqual(Float.NaN, Float.NEGATIVE_INFINITY));
+        assertFalse(nearlyEqual(Float.NEGATIVE_INFINITY, Float.NaN));
+        assertFalse(nearlyEqual(Float.NaN, Float.MAX_VALUE));
+        assertFalse(nearlyEqual(Float.MAX_VALUE, Float.NaN));
+        assertFalse(nearlyEqual(Float.NaN, -Float.MAX_VALUE));
+        assertFalse(nearlyEqual(-Float.MAX_VALUE, Float.NaN));
+        assertFalse(nearlyEqual(Float.NaN, Float.MIN_VALUE));
+        assertFalse(nearlyEqual(Float.MIN_VALUE, Float.NaN));
+        assertFalse(nearlyEqual(Float.NaN, -Float.MIN_VALUE));
+        assertFalse(nearlyEqual(-Float.MIN_VALUE, Float.NaN));
     }
 
     /** Comparisons of numbers on opposite sides of 0 */
@@ -141,8 +157,8 @@ public class NearlyEqualsTest {
         assertFalse(nearlyEqual(-1.0f, 1.000000001f));
         assertFalse(nearlyEqual(-1.000000001f, 1.0f));
         assertFalse(nearlyEqual(1.0f, -1.000000001f));
-        assertTrue(nearlyEqual(1e10f * Float.MIN_VALUE, -1e10f
-                * Float.MIN_VALUE));
+        assertTrue(nearlyEqual(10 * Float.MIN_VALUE, 10 * -Float.MIN_VALUE));
+        assertFalse(nearlyEqual(10000 * Float.MIN_VALUE, 10000 * -Float.MIN_VALUE));
     }
 
     /**
@@ -161,16 +177,5 @@ public class NearlyEqualsTest {
         assertFalse(nearlyEqual(0.000000001f, Float.MIN_VALUE));
         assertFalse(nearlyEqual(Float.MIN_VALUE, 0.000000001f));
         assertFalse(nearlyEqual(-Float.MIN_VALUE, 0.000000001f));
-
-        assertFalse(nearlyEqual(1e25f * Float.MIN_VALUE, 0.0f, 1e-12f));
-        assertFalse(nearlyEqual(0.0f, 1e25f * Float.MIN_VALUE, 1e-12f));
-        assertFalse(nearlyEqual(1e25f * Float.MIN_VALUE, -1e25f
-                * Float.MIN_VALUE, 1e-12f));
-
-        assertTrue(nearlyEqual(1e25f * Float.MIN_VALUE, 0.0f, 1e-5f));
-        assertTrue(nearlyEqual(0.0f, 1e25f * Float.MIN_VALUE, 1e-5f));
-        assertTrue(nearlyEqual(1e20f * Float.MIN_VALUE, -1e20f
-                * Float.MIN_VALUE, 1e-5f));
     }
-
 }
