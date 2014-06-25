@@ -25,7 +25,7 @@ tr.base_example td{
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
 	padding: 2px;
-	vertical-align:bottom;
+	vertical-align: baseline;
 }
 tr.base_example td.separator{
 	background: #fff0f0;
