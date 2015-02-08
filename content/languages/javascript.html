@@ -12,14 +12,14 @@ JavaScript is dynamically typed and will often convert implicitly between string
 Decimal Types
 -------------
 
-One of best decimal type for JavaScript seems to be a port of [Java's](/languages/java/) <code>BigDecimal</code> class, which also supports [rounding modes](/errors/rounding/):
+The oldest decimal type for JavaScript seems to be a port of [Java's](/languages/java/) <code>BigDecimal</code> class, which also supports [rounding modes](/errors/rounding/):
 
 		var a = new BigDecimal("0.01");
 		var b = new BigDecimal("0.02");
 		var c = a.add(b); // 0.03
 		var d = c.setScale(1, BigDecimal.prototype.ROUND_HALF_UP);
 
-There is also <code>bignumber.js</code>, which boasts a simpler API, smaller library size, and [more operations per second](http://jsperf.com/bignumber-js-vs-big-js-vs-decimal-js/8) over BigDecimal for JavaScript:
+There is also <code>bignumber.js</code>, which is smaller and [faster](http://jsperf.com/bignumber-js-vs-big-js-vs-decimal-js/8):
 
 		BigNumber.config({ROUNDING_MODE: BigNumber.ROUND_HALF_UP})
 		var a = new BigNumber("0.01");
@@ -44,7 +44,7 @@ Using a specific rounding mode:
 Resources 
 ---------
 * [BigDecimal for JavaScript](https://github.com/dtrebbien/BigDecimal.js)
-* [bignumber.js for JavaScript](https://github.com/MikeMcl/bignumber.js)
+* [bignumber.js](https://github.com/MikeMcl/bignumber.js)
 * [Core JavaScript Reference](https://developer.mozilla.org/en/JavaScript/Reference)  
   * [parseFloat()](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/parseFloat)
   * [toPrecision()](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number/toPrecision)
