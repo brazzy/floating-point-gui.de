@@ -6,15 +6,17 @@ import org.junit.Test;
 /**
  * Test suite to demonstrate a good method for comparing floating-point values
  * using an epsilon. Run via JUnit 4.
- * 
+ *
  * Note: this function attempts a "one size fits all" solution. There may be
  * some edge cases for which it still produces unexpected results, and some of
  * the tests it was developed to pass probably specify behaviour that is not
- * appropriate for some applications. Before using it, make sure it's
- * appropriate for your application!
- * 
+ * appropriate for some applications, especially concerning very small values
+ * with differing signs.
+ *
+ * Before using it, make sure it's appropriate for your application!
+ *
  * From http://floating-point-gui.de
- * 
+ *
  * @author Michael Borgwardt
  */
 public class NearlyEqualsTest {
@@ -30,7 +32,7 @@ public class NearlyEqualsTest {
             // relative error is less meaningful here
             return diff < (epsilon * Float.MIN_NORMAL);
         } else { // use relative error
-            return diff / (absA + absB) < epsilon;
+            return diff / Math.min((absA + absB), Float.MAX_VALUE) < epsilon;
         }
     }
 
@@ -115,6 +117,19 @@ public class NearlyEqualsTest {
     }
 
     /**
+     * Comparisons involving extreme values (overflow potential)
+     */
+    @Test
+    public void extremeMax() {
+        assertTrue(nearlyEqual(Float.MAX_VALUE, Float.MAX_VALUE));
+        assertFalse(nearlyEqual(Float.MAX_VALUE, -Float.MAX_VALUE));
+        assertFalse(nearlyEqual(-Float.MAX_VALUE, Float.MAX_VALUE));
+        assertFalse(nearlyEqual(Float.MAX_VALUE, Float.MAX_VALUE / 2));
+        assertFalse(nearlyEqual(Float.MAX_VALUE, -Float.MAX_VALUE / 2));
+        assertFalse(nearlyEqual(-Float.MAX_VALUE, Float.MAX_VALUE / 2));
+    }
+
+    /**
      * Comparisons involving infinities
      */
     @Test
@@ -166,6 +181,7 @@ public class NearlyEqualsTest {
      */
     @Test
     public void ulp() {
+        assertTrue(nearlyEqual(Float.MIN_VALUE, Float.MIN_VALUE));
         assertTrue(nearlyEqual(Float.MIN_VALUE, -Float.MIN_VALUE));
         assertTrue(nearlyEqual(-Float.MIN_VALUE, Float.MIN_VALUE));
         assertTrue(nearlyEqual(Float.MIN_VALUE, 0));

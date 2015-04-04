@@ -50,9 +50,10 @@ Also, the result is not commutative (`nearlyEquals(a,b)` is not always the same 
 				// relative error is less meaningful here
 				return diff < (epsilon * Float.MIN_NORMAL);
 			} else { // use relative error
-				return diff / (absA + absB) < epsilon;
+				return diff / Math.min((absA + absB), Float.MAX_VALUE) < epsilon;
 			}
 		}
+
 
 This method [passes tests](../NearlyEqualsTest.java) for many important special cases, but as you can see, it
 uses some quite non-obvious logic. In particular, it has to use a completely different definition of error margin
