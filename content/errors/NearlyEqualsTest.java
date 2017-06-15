@@ -27,7 +27,7 @@ public class NearlyEqualsTest {
 
         if (a == b) { // shortcut, handles infinities
             return true;
-        } else if (a == 0 || b == 0 || diff < Float.MIN_NORMAL) {
+        } else if (a == 0 || b == 0 || (absA + absB < Float.MIN_NORMAL)) {
             // a or b is zero or both are extremely close to it
             // relative error is less meaningful here
             return diff < (epsilon * Float.MIN_NORMAL);
@@ -92,6 +92,13 @@ public class NearlyEqualsTest {
         assertTrue(nearlyEqual(-0.000000001000002f, -0.000000001000001f));
         assertFalse(nearlyEqual(-0.000000000001002f, -0.000000000001001f));
         assertFalse(nearlyEqual(-0.000000000001001f, -0.000000000001002f));
+    }
+
+    /** Small differences away from zero */
+    @Test
+    public void smallDiffs() {
+        assertTrue(nearlyEqual(0.3f, 0.30000003f));
+        assertTrue(nearlyEqual(-0.3f, -0.30000003f));
     }
 
     /** Comparisons involving zero */
