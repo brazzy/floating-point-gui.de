@@ -12,14 +12,12 @@
 	<% end %>
     <link rel="stylesheet" type="text/css" href="/style.css?v1" media="screen">
 	<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
-	<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
   </head>
   <body>  
     <div id="main">
 		<h1><%= @item[:title] %></h1>
       <%= yield %>
 	  
-			<g:plusone href="http://floating-point-gui.de"></g:plusone>
 			<div id="license">
 			<p>&copy; Published at <a href="http://floating-point-gui.de/">floating-point-gui.de</a> under the 
 			<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License (BY)</a></p>
