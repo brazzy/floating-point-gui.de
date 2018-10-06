@@ -8,21 +8,25 @@ Because [floating-point numbers](/formats/fp/) have a limited number of digits, 
 are more digits than the format allows, the leftover ones are omitted - the number is
 *rounded*. There are three reasons why this can be necessary:
 
-* **Large Denominators**
-  In any base, the larger the denominator of an (irreducible) fraction, the more digits it needs in
-  positional notation. A sufficiently large denominator will require rounding, no
-  matter what the base or number of available digits is. For example, 1/1000
-  cannot be accurately represented in less than 3 decimal digits, nor can any
-  multiple of it (that does not allow simplifying the fraction).
-* **Periodical digits**
+* **Too many significant digits** -
+  The great advantage of floating point is that leading and trailing zeroes (within the range provided by the exponent)
+  don't need to be stored. But if, without those, there are still more digits than the significand can store, rounding
+  becomes neccessary. In other words, if your number simply requires more precision than the format can provide, you'll have 
+  to sacrifice some of it, which is no big surprise. For example, with a floating point format that has 3 digits in the
+  significand, 1000 does not require rounding, and neither does 10000 or 1110 - but 1001 will have to be rounded.
+  With the large number of significand digits available in typical floating-point formats, this may seem to be a rarely
+  encountered problem, but if you perform a sequence of calculations, especially multiplication and division, you can very 
+  quickly reach this point.
+* **Periodical digits** -
   Any (irreducible) fraction where the denominator has a prime factor that does not occur in the base
-  requires an infinite number of digits that repeat periodically after a certain point.
+  requires an infinite number of digits that repeat periodically after a certain point, and this can already
+  happen for very simple fractions.
   For example, in decimal 1/4, 3/5 and 8/20 are finite, because 2 and 
   5 are the prime factors of 10. But 1/3 is not finite, nor is 2/3 or 1/7 or 5/6, because 3 
   and 7 are not factors of 10. Fractions with a prime factor of 5 in the denominator
   can be finite in base 10, but [not in base 2](/formats/binary/) - the biggest source of confusion for most
   novice users of floating-point numbers.
-* **Non-rational numbers**
+* **Non-rational numbers** -
   Non-rational numbers cannot be represented as a regular fraction at all, and in
   positional notation (no matter what base) they require an infinite number of non-recurring digits.
 
