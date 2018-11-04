@@ -7,11 +7,11 @@ Floating-Point Types
 --------
 The SQL standard defines three binary floating-point types:
 
-* `REAL` has implementation-dependant precision (usually maps to a hardware-supported type like IEEE 754 single or double precision)
-* `DOUBLE PRECISION` has implementation-dependant precision which is greater than `REAL` (usually maps to IEEE 754 double precision)
-* `FLOAT(N)` has at least `N` binary digits of precision, with an implementation-dependant maximum for `N`
+* `REAL` has implementation-dependent precision (usually maps to a hardware-supported type like IEEE 754 single or double precision)
+* `DOUBLE PRECISION` has implementation-dependent precision which is greater than `REAL` (usually maps to IEEE 754 double precision)
+* `FLOAT(N)` has at least `N` binary digits of precision, with an implementation-dependent maximum for `N`
 
-The exponent range for all three types is implementation-dependant as well.
+The exponent range for all three types is implementation-dependent as well.
 
 Decimal Types
 -------------
@@ -20,7 +20,7 @@ The standard defines two fixed-point decimal types:
 * `NUMERIC(M,N)` has exactly `M` total digits, `N` of them after the decimal point
 * `DECIMAL(M,N)` is the same as `NUMERIC(M,N)`, except that it is allowed to have more than `M` total digits
 
-The maximum values of `M` and `M` are implementation-dependant. Vendors often implement the two types identically.
+The maximum values of `M` and `M` are implementation-dependent. Vendors often implement the two types identically.
 
 How to Round
 ------------
@@ -36,4 +36,4 @@ Resources
 * [SQL 92 draft (free)](http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt)
 * [MySQL numeric types](http://dev.mysql.com/doc/refman/5.0/en/numeric-types.html)
 * [PostgreSQL Numeric Types](https://www.postgresql.org/docs/current/static/datatype-numeric.html)
-* [MS SQL Server data types](http://msdn.microsoft.com/en-US/library/ms187752%28v=SQL.90%29.aspx)
+* [MS SQL Server data types](https://docs.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-2017)
