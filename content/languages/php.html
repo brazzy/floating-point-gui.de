@@ -12,11 +12,15 @@ PHP is dynamically typed and will often convert implicitly between strings and f
 
 Decimal Types
 -------------
-The BC Math extension implements [arbitrary-precision](/formats/exact/) decimal math:
+The BC Math and Decimal extensions implements [arbitrary-precision](/formats/exact/) decimal math:
 
 		$a = '0.1';
 		$b = '0.2';
 		echo bcadd($a, $b);     // prints 0.3
+
+		$a = new Decimal('0.1');
+		$b = new Decimal('0.2');
+		echo $a + $b;           // prints 0.3 
 
 How to Round
 ------------
@@ -25,11 +29,17 @@ Rounding can be done with the `number_format()` function:
 		$number = 4.123;
 		echo number_format($number, 2); // prints 4.12
 
+If you are using the decimal extension, you can round using the `round` method:
+
+		$decimal = new Decimal("4.123");
+                echo $decimal->round(2);        // prints 4.12            
+
 
 Resources 
 ---------
 * [PHP manual](http://www.php.net/manual/en/index.php)
    * [Floating point types](http://www.php.net/manual/en/language.types.float.php)
    * [BC Math extension](http://php.net/manual/en/ref.bc.php)
+   * [Decimal extension](http://php-decimal.io)
    * [number_format()](http://php.net/manual/en/function.number-format.php)
 
