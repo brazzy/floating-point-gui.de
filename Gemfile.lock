@@ -1,20 +1,22 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    adsf (1.2.0)
-      rack (>= 1.6.11)
-    colored (1.2)
-    cri (2.6.1)
-      colored (~> 1.2)
-    kramdown (1.4.0)
-    nanoc (3.7.1)
+    adsf (1.4.2)
+      rack (>= 1.0.0, < 3.0.0)
+    cri (2.15.9)
+    kramdown (2.1.0)
+    nanoc (3.8.0)
       cri (~> 2.3)
-    rack (1.5.4)
+    rack (2.0.7)
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   adsf
   kramdown
-  nanoc
+  nanoc (~> 3.8)
+
+BUNDLED WITH
+   2.0.2
