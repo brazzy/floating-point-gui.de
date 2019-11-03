@@ -11,7 +11,7 @@ are more digits than the format allows, the leftover ones are omitted - the numb
 * **Too many significant digits** -
   The great advantage of floating point is that leading and trailing zeroes (within the range provided by the exponent)
   don't need to be stored. But if, without those, there are still more digits than the significand can store, rounding
-  becomes neccessary. In other words, if your number simply requires more precision than the format can provide, you'll have 
+  becomes necessary. In other words, if your number simply requires more precision than the format can provide, you'll have 
   to sacrifice some of it, which is no big surprise. For example, with a floating point format that has 3 digits in the
   significand, 1000 does not require rounding, and neither does 10000 or 1110 - but 1001 will have to be rounded.
   With the large number of significand digits available in typical floating-point formats, this may seem to be a rarely
