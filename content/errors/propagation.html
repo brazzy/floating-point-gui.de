@@ -10,9 +10,10 @@ errors "add up".
 In general:
 
 * Multiplication and division are "safe" operations
-* Addition and subtraction are dangerous, because when numbers of different magnitudes are involved,
-  digits of the smaller-magnitude number are lost.
-* This loss of digits can be inevitable and benign (when the lost digits also insignificant for
+* Addition and subtraction are dangerous:
+  * When numbers of different magnitudes are involved, digits of the smaller-magnitude number are lost. As an extreme example, if you have a single-precision floating point value of 100,000,000 and add 1 to it, the value will not change - even if you do it 100,000,000 times, because the result gets rounded back to 100,000,000 every single time.
+  * When numbers very close to each other are subtracted, the result's less significant digits consist mostly of rounding errors - the more the closer the original numbers were. As an extreme example, in a single-precision calculation of the form `100,000,000 * (f1() - f2()) + 0,0001` where `f1()` and `f2()` are different functions that should return the same value, rounding errors will likely cause `f1() - f2()` to be (incorrectly) non-zero. Magnified by multiplication with a large value, the final result could be many orders of magnitude bigger than the `0,0001` value it should have.
+* Thus, the losses of precision can be inevitable and benign (when the lost digits also insignificant for
   the final result) or catastrophic (when the loss is magnified and distorts the result strongly).
 * The more calculations are done (especially when they form an iterative algorithm) the more important
   it is to consider this kind of problem.
