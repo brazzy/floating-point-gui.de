@@ -59,4 +59,4 @@ Note that there are some peculiarities:
 * There are special **positive and negative infinity** values, where the exponent is all 1-bits and the significand is all 0-bits. These are the results of calculations where the positive range of the exponent is exceeded, or division  of a regular number by zero.
 * There are special **not a number** (or NaN) values where the exponent is all 1-bits and the significand is *not* all 0-bits. These represent the result of various undefined calculations (like multiplying 0 and infinity, any calculation involving a NaN value, or application-specific cases). Even bit-identical NaN values must *not* be considered equal.
 
-If this seems too abstract and you want to see how some specific values look like in IEE 754, try the [IEEE-754 Analysis tool](https://babbage.cs.qc.cuny.edu/IEEE-754/index.xhtml).
+If this seems too abstract and you want to see how some specific values look like in IEE 754, try the [Float Toy](http://evanw.github.io/float-toy/), or the [IEEE 754 Visualization](https://bartaz.github.io/ieee754-visualization/), or [Float Exposed](https://float.exposed/0x40490fdb).
