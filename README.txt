@@ -8,5 +8,9 @@ when they are not appropriate.
 The site is built using the nanoc static site generator:
 https://nanoc.ws/ (Requires the kramdown and adsf gems)
 
-and published under the Creative Commons Attribution License (BY):
+Please note: the contents of the `output` folder are generated and only
+included in the repository to support my half-assed automated deployment
+process. I will not accept pull requests that edit these files.
+
+The site is published under the Creative Commons Attribution License (BY):
 http://creativecommons.org/licenses/by/3.0/
