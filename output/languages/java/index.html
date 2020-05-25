@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Floating-Point Guide - Floating-point cheat sheet for Java</title>
+	
+    <meta name="generator" content="nanoc 3.1.2">
+	
+		<meta name="Description" content="Tips for using floating-point and decimal numbers in Java">
+	
+    <link rel="stylesheet" type="text/css" href="/style.css?v1" media="screen">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body>  
+    <div id="main">
+		<h1>Floating-point cheat sheet for Java</h1>
+      
+<h2 id="floating-point-types">Floating-Point Types</h2>
+<p>Java has <a href="/formats/fp/">IEEE 754</a> single and double precision types supported by keywords:</p>
+
+<pre><code>	float f = 0.1f; // 32 bit float, note f suffix
+	double d = 0.1d; // 64 bit float, suffix optional
+</code></pre>
+
+<p>The <code>strictfp</code> keyword on classes, interfaces and methods forces all intermediate results of floating-point calculations to be IEEE 754 values as well, guaranteeing identical results on all platforms. Without that keyword, implementations can use an extended exponent range where available, resulting in more precise results and faster execution on many common CPUs.</p>
+
+<h2 id="decimal-types">Decimal Types</h2>
+<p>Java has an <a href="/formats/exact/">arbitrary-precision</a> decimal type named <code>java.math.BigDecimal</code>, which
+also allows to choose the <a href="/errors/rounding/">rounding mode</a>.</p>
+
+<pre><code>	BigDecimal a = new BigDecimal("0.1");
+	BigDecimal b = new BigDecimal("0.2");
+	BigDecimal c = a.add(b); // returns a BigDecimal representing exactly 0.3
+</code></pre>
+
+<h2 id="how-to-round">How to Round</h2>
+<p>To get a String:</p>
+
+<pre><code>	String.format("%.2f", 1.2399) // returns "1.24"
+	String.format("%.3f", 1.2399) // returns "1.240"
+	String.format("%.2f", 1.2) // returns "1.20"
+</code></pre>
+
+<p>To print to standard output (or any <code>PrintStream</code>):</p>
+
+<pre><code>	System.out.printf("%.2f", 1.2399) // same syntax as String.format()
+</code></pre>
+
+<p>If you don’t want trailing zeroes:</p>
+
+<pre><code>	new DecimalFormat("0.00").format(1.2)// returns "1.20"
+	new DecimalFormat("0.##").format(1.2)// returns "1.2"
+</code></pre>
+
+<p>If you need a specific <a href="/errors/rounding/">rounding mode</a>:</p>
+
+<pre><code>	new BigDecimal("1.25").setScale(1, RoundingMode.HALF_EVEN); // returns 1.2
+</code></pre>
+
+<h2 id="resources">Resources</h2>
+<ul>
+  <li><a href="http://java.sun.com/docs/books/jls/third_edition/html/j3TOC.html">Java Language Specification</a>
+    <ul>
+      <li><a href="http://java.sun.com/docs/books/jls/third_edition/html/typesValues.html#4.2.3">Floating-Point Types, Formats, and Values</a></li>
+    </ul>
+  </li>
+  <li><a href="http://java.sun.com/javase/6/docs/api/">Java Standard API</a>
+    <ul>
+      <li><a href="http://download.oracle.com/javase/6/docs/api/java/math/BigDecimal.html">BigDecimal</a></li>
+      <li><a href="http://download.oracle.com/javase/6/docs/api/java/text/DecimalFormat.html">DecimalFormat</a></li>
+      <li><a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html#format(java.lang.String,%20java.lang.Object...)">String.format()</a></li>
+    </ul>
+  </li>
+</ul>
+
+	  
+			<div id="license">
+			<p>&copy; Published at <a href="https://floating-point-gui.de/">floating-point-gui.de</a> under the 
+			<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License (BY)</a></p>
+		</div>
+    </div>
+    <div id="sidebar">
+		<img src="/logo.png">
+		<h2>The Floating-Point Guide</h2>
+		<ul>
+			<li><a href="http://puntoflotante.org/" alt="en Espa&ntilde;ol"><img title="en Espa&ntilde;ol" src="/es.png"></a></li>
+			<li><a href="/">Home</a></li>
+			<li><a href="/basic/">Basic Answers</a></li>
+			<li><a href="/references/">References</a></li>
+			<li><a href="/xkcd/">xkcd</a></li>
+		</ul>
+	  
+		<h2>Number Formats</h2>	
+		<ul>
+			<li><a href="/formats/binary/">Binary Fractions</a></li>
+			<li><a href="/formats/fp/">Floating-Point</a></li>
+			<li><a href="/formats/exact/">Exact Types</a></li>
+			<li><a href="/formats/integer/">On Using Integers</a></li>
+		</ul>
+	
+		<h2>Errors</h2>	
+		<ul>
+			<li><a href="/errors/rounding/">Rounding</a></li>
+			<li><a href="/errors/comparison/">Comparison</a></li>
+			<li><a href="/errors/propagation/">Propagation</a></li>
+		</ul>
+		
+		<h2>Language<br>cheat sheets</h2>
+		<ul>
+			<li><a href="/languages/csharp/">C#</a></li>
+			<li><a href="/languages/java/">Java</a></li>
+			<li><a href="/languages/javascript/">JavaScript</a></li>
+			<li><a href="/languages/perl/">Perl</a></li>
+			<li><a href="/languages/php/">PHP</a></li>
+			<li><a href="/languages/python/">Python</a></li>
+			<li><a href="/languages/ruby/">Ruby</a></li>
+			<li><a href="/languages/sql/">SQL</a></li>
+		</ul>
+    </div>
+<a href="http://github.com/brazzy/floating-point-gui.de"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+
+  </body>
+</html>

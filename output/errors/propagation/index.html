@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Floating-Point Guide - Error Propagation</title>
+	
+    <meta name="generator" content="nanoc 3.1.2">
+	
+		<meta name="Description" content="Explanations about propagation of errors in floating-point math.">
+	
+    <link rel="stylesheet" type="text/css" href="/style.css?v1" media="screen">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body>  
+    <div id="main">
+		<h1>Error Propagation</h1>
+      
+<p>While the errors in single <a href="/formats/fp/">floating-point numbers</a> are very small, even simple calculations on them
+can contain pitfalls that increase the error in the result way beyond just having the individual 
+errors “add up”.</p>
+
+<p>In general:</p>
+
+<ul>
+  <li>Multiplication and division are “safe” operations</li>
+  <li>Addition and subtraction are dangerous:
+    <ul>
+      <li>When numbers of different magnitudes are involved, digits of the smaller-magnitude number are lost. As an extreme example, if you have a single-precision floating point value of 100,000,000 and add 1 to it, the value will not change - even if you do it 100,000,000 times, because the result gets rounded back to 100,000,000 every single time.</li>
+      <li>When numbers very close to each other are subtracted, the result’s less significant digits consist mostly of rounding errors - the more the closer the original numbers were. As an extreme example, in a single-precision calculation of the form <code>100,000,000 * (f1() - f2()) + 0,0001</code> where <code>f1()</code> and <code>f2()</code> are different functions that should return the same value, rounding errors will likely cause <code>f1() - f2()</code> to be (incorrectly) non-zero. Magnified by multiplication with a large value, the final result could be many orders of magnitude bigger than the <code>0,0001</code> value it should have.</li>
+    </ul>
+  </li>
+  <li>Thus, the losses of precision can be inevitable and benign (when the lost digits also insignificant for
+the final result) or catastrophic (when the loss is magnified and distorts the result strongly).</li>
+  <li>The more calculations are done (especially when they form an iterative algorithm) the more important
+it is to consider this kind of problem.</li>
+  <li>A method of calculation can be <em>stable</em> (meaning that it tends to reduce rounding errors) 
+or <em>unstable</em> (meaning that rounding errors are magnified). Very often, there are both stable
+and unstable solutions for a problem.</li>
+</ul>
+
+<p>There is an entire sub-field of mathematics (in <a href="http://en.wikipedia.org/wiki/Numerical_analysis">numerical analysis</a>) devoted to studying the numerical stability
+of algorithms. For doing complex calculations involving floating-point numbers, it is absolutely
+necessary to have some understanding of this discipline.</p>
+
+<p>The article <a href="/references/">What Every Computer Scientist Should Know About Floating-Point Arithmetic</a> gives a detailed introduction,
+and served as an inspiration for creating this website, mainly due to being a bit too detailed and
+intimidating to programmers without a scientific background.</p>
+
+	  
+			<div id="license">
+			<p>&copy; Published at <a href="https://floating-point-gui.de/">floating-point-gui.de</a> under the 
+			<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License (BY)</a></p>
+		</div>
+    </div>
+    <div id="sidebar">
+		<img src="/logo.png">
+		<h2>The Floating-Point Guide</h2>
+		<ul>
+			<li><a href="http://puntoflotante.org/" alt="en Espa&ntilde;ol"><img title="en Espa&ntilde;ol" src="/es.png"></a></li>
+			<li><a href="/">Home</a></li>
+			<li><a href="/basic/">Basic Answers</a></li>
+			<li><a href="/references/">References</a></li>
+			<li><a href="/xkcd/">xkcd</a></li>
+		</ul>
+	  
+		<h2>Number Formats</h2>	
+		<ul>
+			<li><a href="/formats/binary/">Binary Fractions</a></li>
+			<li><a href="/formats/fp/">Floating-Point</a></li>
+			<li><a href="/formats/exact/">Exact Types</a></li>
+			<li><a href="/formats/integer/">On Using Integers</a></li>
+		</ul>
+	
+		<h2>Errors</h2>	
+		<ul>
+			<li><a href="/errors/rounding/">Rounding</a></li>
+			<li><a href="/errors/comparison/">Comparison</a></li>
+			<li><a href="/errors/propagation/">Propagation</a></li>
+		</ul>
+		
+		<h2>Language<br>cheat sheets</h2>
+		<ul>
+			<li><a href="/languages/csharp/">C#</a></li>
+			<li><a href="/languages/java/">Java</a></li>
+			<li><a href="/languages/javascript/">JavaScript</a></li>
+			<li><a href="/languages/perl/">Perl</a></li>
+			<li><a href="/languages/php/">PHP</a></li>
+			<li><a href="/languages/python/">Python</a></li>
+			<li><a href="/languages/ruby/">Ruby</a></li>
+			<li><a href="/languages/sql/">SQL</a></li>
+		</ul>
+    </div>
+<a href="http://github.com/brazzy/floating-point-gui.de"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+
+  </body>
+</html>

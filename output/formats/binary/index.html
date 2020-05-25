@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Floating-Point Guide - Binary Fractions</title>
+	
+    <meta name="generator" content="nanoc 3.1.2">
+	
+		<meta name="Description" content="In-depth explanation of how binary fractions work, what problems the cause and why they are used anyway">
+	
+    <link rel="stylesheet" type="text/css" href="/style.css?v1" media="screen">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body>  
+    <div id="main">
+		<h1>Binary Fractions</h1>
+      
+<h2 id="how-they-work">How they work</h2>
+<p>As a programmer, you should be familiar with the concept of binary integers, i.e.
+the representation of integer numbers as a series of bits:</p>
+
+<table>
+<tr><th colspan="9">Decimal (<span class="num_base">base 10</span>)</th><th> </th><th colspan="17">Binary (<span class="num_base">base 2</span>)</th></tr>
+<tr class="base_example">
+<td class="digit">1</td><td>&sdot;</td><td class="num_base">10<sup>1</sup></td><td>+</td>
+<td class="digit">3</td><td>&sdot;</td><td class="num_base">10<sup>0</sup></td><td>=</td>
+<td class="digit">13<sub class="num_base">10</sub></td><td class="separator">=</td>
+<td class="digit">1101<sub class="num_base">2</sub></td><td>=</td>
+<td class="digit">1</td><td>&sdot;</td><td class="num_base">2<sup>3</sup></td><td>+</td>
+<td class="digit">1</td><td>&sdot;</td><td class="num_base">2<sup>2</sup></td><td>+</td>
+<td class="digit">0</td><td>&sdot;</td><td class="num_base">2<sup>1</sup></td><td>+</td>
+<td class="digit">1</td><td>&sdot;</td><td class="num_base">2<sup>0</sup></td>
+</tr><tr class="base_example">
+<td class="digit">1</td><td>&sdot;</td><td>10</td><td>+</td>
+<td class="digit">3</td><td>&sdot;</td><td>1 </td><td>=</td>
+<td class="digit">13<sub class="num_base">10</sub></td><td class="separator">=</td>
+<td class="digit">1101<sub class="num_base">2</sub></td><td>=</td>
+<td class="digit">1</td><td>&sdot;</td><td>8</td><td>+</td>
+<td class="digit">1</td><td>&sdot;</td><td>4</td><td>+</td>
+<td class="digit">0</td><td>&sdot;</td><td>2</td><td>+</td>
+<td class="digit">1</td><td>&sdot;</td><td>1</td>
+</tr></table>
+
+<p>This is how computers store integer numbers internally. And for fractional numbers in <a href="http://en.wikipedia.org/wiki/Positional_notation">positional notation</a>, they do the same thing:</p>
+
+<table>
+<tr><th colspan="13">Decimal (<span class="num_base">base 10</span>)</th><th> </th><th colspan="13">Binary (<span class="num_base">base 2</span>)</th></tr>
+<tr class="base_example">
+<td class="digit">6</td><td>&sdot;</td><td class="num_base">10<sup>-1</sup></td><td>+</td>
+<td class="digit">2</td><td>&sdot;</td><td class="num_base">10<sup>-2</sup></td><td>+</td>
+<td class="digit">5</td><td>&sdot;</td><td class="num_base">10<sup>-3</sup></td><td>=</td>
+<td class="digit">0.625<sub class="num_base">10</sub></td><td class="separator">=</td>
+<td class="digit">0.101<sub class="num_base">2</sub></td><td>=</td>
+<td class="digit">1</td><td>&sdot;</td><td class="num_base">2<sup>-1</sup></td><td>+</td>
+<td class="digit">0</td><td>&sdot;</td><td class="num_base">2<sup>-2</sup></td><td>+</td>
+<td class="digit">1</td><td>&sdot;</td><td class="num_base">2<sup>-3</sup></td>
+</tr><tr class="base_example">
+<td class="digit">6</td><td>&sdot;</td><td>1/10</td><td>+</td>
+<td class="digit">2</td><td>&sdot;</td><td>1/100</td><td>+</td>
+<td class="digit">5</td><td>&sdot;</td><td>1/1000</td><td>=</td>
+<td class="digit">0.625<sub class="num_base">10</sub></td><td class="separator">=</td>
+<td class="digit">0.101<sub class="num_base">2</sub></td><td>=</td>
+<td class="digit">1</td><td>&sdot;</td><td>1/2</td><td>+</td>
+<td class="digit">0</td><td>&sdot;</td><td>1/4</td><td>+</td>
+<td class="digit">1</td><td>&sdot;</td><td>1/8</td>
+</tr></table>
+
+<h2 id="problems">Problems</h2>
+<p>While they work the same in principle, binary fractions are different from decimal fractions in what
+numbers they can accurately represent with a given number of digits, and thus also in what numbers result in <a href="/errors/rounding/">rounding errors</a>:</p>
+
+<p>Specifically, binary can only represent those numbers as a finite fraction where the denominator
+is a power of 2. Unfortunately, this does not include most of the numbers that can be 
+represented as finite fraction in base 10, like 0.1.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fraction</th>
+      <th>Base</th>
+      <th>Positional Notation</th>
+      <th>Rounded to 4 digits</th>
+      <th>Rounded value as fraction</th>
+      <th>Rounding error</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1/10</td>
+      <td>10</td>
+      <td>0.1</td>
+      <td>0.1</td>
+      <td>1/10</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1/3</td>
+      <td>10</td>
+      <td>0.<span class="over">3</span></td>
+      <td>0.3333</td>
+      <td>3333/10000</td>
+      <td>1/30000</td>
+    </tr>
+    <tr>
+      <td>1/2</td>
+      <td>2</td>
+      <td>0.1</td>
+      <td>0.1</td>
+      <td>1/2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1/10</td>
+      <td>2</td>
+      <td>0.0<span class="over">0011</span></td>
+      <td>0.0001</td>
+      <td>1/16</td>
+      <td>3/80</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>And this is how you already get a rounding error when you just <em>write down</em> a number like 0.1 and
+run it through your interpreter or compiler. It’s not as big as 3/80 and may be invisible because
+computers cut off after 23 or 52 binary digits rather than 4. But the error is there and <em>will</em> cause
+problems eventually if you just ignore it.</p>
+
+<h2 id="why-use-binary">Why use Binary?</h2>
+<p>At the lowest level, computers are based on billions of electrical elements that have only two states, (usually low and high voltage). By interpreting these as 0 and 1, it’s very easy to build circuits for storing binary numbers and doing calculations with them.</p>
+
+<p>While it’s possible to simulate the behaviour of decimal numbers with binary circuits as well, it’s less efficient. If computers used decimal numbers internally, they’d have less memory and be slower at the same level of technology.</p>
+
+<p>Since the difference in behaviour between binary and decimal numbers is not important for most applications, the logical choice is to build computers based on binary numbers and live with the fact
+that some extra care and effort are necessary for applications that require <a href="/formats/exact/">decimal-like behaviour</a>.</p>
+
+	  
+			<div id="license">
+			<p>&copy; Published at <a href="https://floating-point-gui.de/">floating-point-gui.de</a> under the 
+			<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License (BY)</a></p>
+		</div>
+    </div>
+    <div id="sidebar">
+		<img src="/logo.png">
+		<h2>The Floating-Point Guide</h2>
+		<ul>
+			<li><a href="http://puntoflotante.org/" alt="en Espa&ntilde;ol"><img title="en Espa&ntilde;ol" src="/es.png"></a></li>
+			<li><a href="/">Home</a></li>
+			<li><a href="/basic/">Basic Answers</a></li>
+			<li><a href="/references/">References</a></li>
+			<li><a href="/xkcd/">xkcd</a></li>
+		</ul>
+	  
+		<h2>Number Formats</h2>	
+		<ul>
+			<li><a href="/formats/binary/">Binary Fractions</a></li>
+			<li><a href="/formats/fp/">Floating-Point</a></li>
+			<li><a href="/formats/exact/">Exact Types</a></li>
+			<li><a href="/formats/integer/">On Using Integers</a></li>
+		</ul>
+	
+		<h2>Errors</h2>	
+		<ul>
+			<li><a href="/errors/rounding/">Rounding</a></li>
+			<li><a href="/errors/comparison/">Comparison</a></li>
+			<li><a href="/errors/propagation/">Propagation</a></li>
+		</ul>
+		
+		<h2>Language<br>cheat sheets</h2>
+		<ul>
+			<li><a href="/languages/csharp/">C#</a></li>
+			<li><a href="/languages/java/">Java</a></li>
+			<li><a href="/languages/javascript/">JavaScript</a></li>
+			<li><a href="/languages/perl/">Perl</a></li>
+			<li><a href="/languages/php/">PHP</a></li>
+			<li><a href="/languages/python/">Python</a></li>
+			<li><a href="/languages/ruby/">Ruby</a></li>
+			<li><a href="/languages/sql/">SQL</a></li>
+		</ul>
+    </div>
+<a href="http://github.com/brazzy/floating-point-gui.de"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+
+  </body>
+</html>

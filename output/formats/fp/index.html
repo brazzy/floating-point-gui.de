@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Floating-Point Guide - Floating Point Numbers</title>
+	
+    <meta name="generator" content="nanoc 3.1.2">
+	
+		<meta name="Description" content="Explanation of how floating-points numbers work and what they are good for">
+	
+    <link rel="stylesheet" type="text/css" href="/style.css?v1" media="screen">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body>  
+    <div id="main">
+		<h1>Floating Point Numbers</h1>
+      
+<h2 id="why-floating-point-numbers-are-needed">Why floating-point numbers are needed</h2>
+
+<p>Since computer memory is limited, you cannot store numbers with infinite precision, no matter whether you use <a href="/formats/binary/">binary fractions</a> or decimal ones: at some point you have to cut off. But how much accuracy is needed? And <em>where</em> is it needed? How many integer digits and how many fraction digits?</p>
+
+<ul>
+  <li>To an engineer building a highway, it does not matter whether it’s 10 meters or 10.0001 meters wide - their measurements are probably not that accurate in the first place.</li>
+  <li>To someone designing a microchip, 0.0001 meters (a tenth of a millimeter) is a <em>huge</em> difference - But they’ll never have to deal with a distance larger than 0.1 meters.</li>
+  <li>A physicist needs to use the <a href="http://en.wikipedia.org/wiki/Speed_of_light">speed of light</a> (about 300000000) and <a href="http://en.wikipedia.org/wiki/Gravitational_constant">Newton’s gravitational constant</a> (about 0.0000000000667) together in the same calculation.</li>
+</ul>
+
+<p>To satisfy the engineer and the chip designer, a number format has to provide accuracy for numbers at very different magnitudes. However, only <em>relative</em> accuracy is needed. To satisfy the physicist, it must be possible to do calculations that involve numbers with different magnitudes.</p>
+
+<p>Basically, having a fixed number of integer and fractional digits is not useful - and the solution is a format with a <em>floating point</em>.</p>
+
+<h2 id="how-floating-point-numbers-work">How floating-point numbers work</h2>
+<p>The idea is to compose a number of two main parts:</p>
+
+<ul>
+  <li>A <strong>significand</strong> that contains the number’s digits. Negative significands represent negative numbers.</li>
+  <li>An <strong>exponent</strong> that says where the decimal (or binary) point is placed relative to the beginning of the significand. Negative exponents represent numbers that are very small (i.e. close to zero).</li>
+</ul>
+
+<p>Such a format satisfies all the requirements:</p>
+
+<ul>
+  <li>It can represent numbers at wildly different magnitudes (limited by the length of the exponent)</li>
+  <li>It provides the same relative accuracy at all magnitudes (limited by the length of the significand)</li>
+  <li>It allows calculations across magnitudes: multiplying a very large and a very small number preserves the accuracy of both in the result.</li>
+</ul>
+
+<p>Decimal floating-point numbers usually take the form of <a href="http://en.wikipedia.org/wiki/Scientific_notation">scientific notation</a> with an
+explicit point always between the 1st and 2nd digits. The exponent is
+either written explicitly including the base, or an <strong>e</strong> is used to
+separate it from the significand.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Significand</th>
+      <th>Exponent</th>
+      <th>Scientific notation</th>
+      <th>Fixed-point value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1.5</td>
+      <td>4</td>
+      <td>1.5 ⋅ 10<sup>4</sup></td>
+      <td>15000</td>
+    </tr>
+    <tr>
+      <td>-2.001</td>
+      <td>2</td>
+      <td>-2.001 ⋅ 10<sup>2</sup></td>
+      <td>-200.1</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>-3</td>
+      <td>5 ⋅ 10<sup>-3</sup></td>
+      <td>0.005</td>
+    </tr>
+    <tr>
+      <td>6.667</td>
+      <td>-11</td>
+      <td>6.667e-11</td>
+      <td>0.00000000006667</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="the-standard">The standard</h2>
+<p>Nearly all hardware and programming languages use floating-point numbers in the same binary formats, which are defined in the <a href="http://en.wikipedia.org/wiki/IEEE_754-2008">IEEE 754</a> standard. The usual formats are 32 or 64 bits in total length:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Format</th>
+      <th>Total bits</th>
+      <th>Significand bits</th>
+      <th>Exponent bits</th>
+      <th>Smallest number</th>
+      <th>Largest number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Single precision</td>
+      <td>32</td>
+      <td>23 + 1 sign</td>
+      <td>8</td>
+      <td>ca. 1.2 ⋅ 10<sup>-38</sup></td>
+      <td>ca. 3.4 ⋅ 10<sup>38</sup></td>
+    </tr>
+    <tr>
+      <td>Double precision</td>
+      <td>64</td>
+      <td>52 + 1 sign</td>
+      <td>11</td>
+      <td>ca. 2.2 ⋅ 10<sup>-308</sup></td>
+      <td>ca. 1.8 ⋅ 10<sup>308</sup></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Note that there are some peculiarities:</p>
+
+<ul>
+  <li>The <strong>actual bit sequence</strong> is the sign bit first, followed by the exponent and finally the significand bits.</li>
+  <li>The exponent does not have a sign; instead an <strong>exponent bias</strong> is subtracted from it (127 for single and 1023 for double precision). This, and the bit sequence, allows floating-point numbers to be compared and sorted correctly even when interpreting them as integers.</li>
+  <li>The significand’s most significant digit is omitted and assumed to be 1, except for <strong>subnormal numbers</strong> which are marked by an all-0 exponent and allow a number range beyond the smallest numbers given in the table above, at the cost of precision.</li>
+  <li>There are separate <strong>positive and a negative zero</strong> values, differing in the sign bit, where all other bits are 0. These must be considered equal even though their bit patterns are different.</li>
+  <li>There are special <strong>positive and negative infinity</strong> values, where the exponent is all 1-bits and the significand is all 0-bits. These are the results of calculations where the positive range of the exponent is exceeded, or division  of a regular number by zero.</li>
+  <li>There are special <strong>not a number</strong> (or NaN) values where the exponent is all 1-bits and the significand is <em>not</em> all 0-bits. These represent the result of various undefined calculations (like multiplying 0 and infinity, any calculation involving a NaN value, or application-specific cases). Even bit-identical NaN values must <em>not</em> be considered equal.</li>
+</ul>
+
+<p>If this seems too abstract and you want to see how some specific values look like in IEE 754, try the <a href="http://evanw.github.io/float-toy/">Float Toy</a>, or the <a href="https://bartaz.github.io/ieee754-visualization/">IEEE 754 Visualization</a>, or <a href="https://float.exposed/0x40490fdb">Float Exposed</a>.</p>
+
+	  
+			<div id="license">
+			<p>&copy; Published at <a href="https://floating-point-gui.de/">floating-point-gui.de</a> under the 
+			<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License (BY)</a></p>
+		</div>
+    </div>
+    <div id="sidebar">
+		<img src="/logo.png">
+		<h2>The Floating-Point Guide</h2>
+		<ul>
+			<li><a href="http://puntoflotante.org/" alt="en Espa&ntilde;ol"><img title="en Espa&ntilde;ol" src="/es.png"></a></li>
+			<li><a href="/">Home</a></li>
+			<li><a href="/basic/">Basic Answers</a></li>
+			<li><a href="/references/">References</a></li>
+			<li><a href="/xkcd/">xkcd</a></li>
+		</ul>
+	  
+		<h2>Number Formats</h2>	
+		<ul>
+			<li><a href="/formats/binary/">Binary Fractions</a></li>
+			<li><a href="/formats/fp/">Floating-Point</a></li>
+			<li><a href="/formats/exact/">Exact Types</a></li>
+			<li><a href="/formats/integer/">On Using Integers</a></li>
+		</ul>
+	
+		<h2>Errors</h2>	
+		<ul>
+			<li><a href="/errors/rounding/">Rounding</a></li>
+			<li><a href="/errors/comparison/">Comparison</a></li>
+			<li><a href="/errors/propagation/">Propagation</a></li>
+		</ul>
+		
+		<h2>Language<br>cheat sheets</h2>
+		<ul>
+			<li><a href="/languages/csharp/">C#</a></li>
+			<li><a href="/languages/java/">Java</a></li>
+			<li><a href="/languages/javascript/">JavaScript</a></li>
+			<li><a href="/languages/perl/">Perl</a></li>
+			<li><a href="/languages/php/">PHP</a></li>
+			<li><a href="/languages/python/">Python</a></li>
+			<li><a href="/languages/ruby/">Ruby</a></li>
+			<li><a href="/languages/sql/">SQL</a></li>
+		</ul>
+    </div>
+<a href="http://github.com/brazzy/floating-point-gui.de"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+
+  </body>
+</html>

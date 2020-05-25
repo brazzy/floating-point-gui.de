@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Floating-Point Guide - Floating-point cheat sheet for PHP</title>
+	
+    <meta name="generator" content="nanoc 3.1.2">
+	
+		<meta name="Description" content="Tips for using floating-point and decimal numbers in PHP">
+	
+    <link rel="stylesheet" type="text/css" href="/style.css?v1" media="screen">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body>  
+    <div id="main">
+		<h1>Floating-point cheat sheet for PHP</h1>
+      
+<h2 id="floating-point-types">Floating-Point Types</h2>
+<p>PHP is dynamically typed and will often convert implicitly between strings and floating-point numbers (which are platform-dependant, but typically IEEE 64 bit values). To force a value to floating-point, evaluate it in a numerical context:</p>
+
+<pre><code>	$foo = 0 + "10.5"; 
+</code></pre>
+
+<h2 id="decimal-types">Decimal Types</h2>
+<p>The BC Math and Decimal extensions implement <a href="/formats/exact/">arbitrary-precision</a> decimal math:</p>
+
+<pre><code>	$a = '0.1';
+	$b = '0.2';
+	echo bcadd($a, $b);     // prints 0.3
+
+	$a = new Decimal('0.1');
+	$b = new Decimal('0.2');
+	echo $a + $b;           // prints 0.3 
+</code></pre>
+
+<h2 id="how-to-round">How to Round</h2>
+<p>Rounding can be done with the <code>number_format()</code> function:</p>
+
+<pre><code>	$number = 4.123;
+	echo number_format($number, 2); // prints 4.12
+</code></pre>
+
+<p>If you are using the decimal extension, you can round using the <code>round</code> method:</p>
+
+<pre><code>	$decimal = new Decimal("4.123");
+            echo $decimal-&gt;round(2);        // prints 4.12            
+</code></pre>
+
+<h2 id="resources">Resources</h2>
+<ul>
+  <li><a href="http://www.php.net/manual/en/index.php">PHP manual</a>
+    <ul>
+      <li><a href="http://www.php.net/manual/en/language.types.float.php">Floating point types</a></li>
+      <li><a href="http://php.net/manual/en/ref.bc.php">BC Math extension</a></li>
+      <li><a href="http://php-decimal.io">Decimal extension</a></li>
+      <li><a href="http://php.net/manual/en/function.number-format.php">number_format()</a></li>
+    </ul>
+  </li>
+</ul>
+
+
+	  
+			<div id="license">
+			<p>&copy; Published at <a href="https://floating-point-gui.de/">floating-point-gui.de</a> under the 
+			<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License (BY)</a></p>
+		</div>
+    </div>
+    <div id="sidebar">
+		<img src="/logo.png">
+		<h2>The Floating-Point Guide</h2>
+		<ul>
+			<li><a href="http://puntoflotante.org/" alt="en Espa&ntilde;ol"><img title="en Espa&ntilde;ol" src="/es.png"></a></li>
+			<li><a href="/">Home</a></li>
+			<li><a href="/basic/">Basic Answers</a></li>
+			<li><a href="/references/">References</a></li>
+			<li><a href="/xkcd/">xkcd</a></li>
+		</ul>
+	  
+		<h2>Number Formats</h2>	
+		<ul>
+			<li><a href="/formats/binary/">Binary Fractions</a></li>
+			<li><a href="/formats/fp/">Floating-Point</a></li>
+			<li><a href="/formats/exact/">Exact Types</a></li>
+			<li><a href="/formats/integer/">On Using Integers</a></li>
+		</ul>
+	
+		<h2>Errors</h2>	
+		<ul>
+			<li><a href="/errors/rounding/">Rounding</a></li>
+			<li><a href="/errors/comparison/">Comparison</a></li>
+			<li><a href="/errors/propagation/">Propagation</a></li>
+		</ul>
+		
+		<h2>Language<br>cheat sheets</h2>
+		<ul>
+			<li><a href="/languages/csharp/">C#</a></li>
+			<li><a href="/languages/java/">Java</a></li>
+			<li><a href="/languages/javascript/">JavaScript</a></li>
+			<li><a href="/languages/perl/">Perl</a></li>
+			<li><a href="/languages/php/">PHP</a></li>
+			<li><a href="/languages/python/">Python</a></li>
+			<li><a href="/languages/ruby/">Ruby</a></li>
+			<li><a href="/languages/sql/">SQL</a></li>
+		</ul>
+    </div>
+<a href="http://github.com/brazzy/floating-point-gui.de"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+
+  </body>
+</html>

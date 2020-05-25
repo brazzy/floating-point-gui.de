@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Floating-Point Guide - Floating-point cheat sheet for Perl</title>
+	
+    <meta name="generator" content="nanoc 3.1.2">
+	
+		<meta name="Description" content="Tips for using floating-point and decimal numbers in Perl">
+	
+    <link rel="stylesheet" type="text/css" href="/style.css?v1" media="screen">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body>  
+    <div id="main">
+		<h1>Floating-point cheat sheet for Perl</h1>
+      
+<h2 id="floating-point-types">Floating-Point Types</h2>
+<p>Perl supports platform-native floating-point as scalar values; in practice this usually means <a href="/formats/fp/">IEEE 754</a> double precision.</p>
+
+<h2 id="exact-types">Exact Types</h2>
+<p>Perl can also store decimal numbers as strings, but the builtin arithmetic operators will convert them to integer or floating-point values to perform the operation.</p>
+
+<p>The <code>Math::BigFloat</code> extension provides an arbitrary-precision <a href="/formats/exact/">decimal type</a>:</p>
+
+<pre><code>	use Math::BigFloat ':constant'
+	my $f = 0.1 + 0.2; # returns exactly 0.3
+</code></pre>
+
+<p>The <code>Number::Fraction</code> extension provides a fraction type that overloads the arithmetic operators with <a href="/formats/exact/">symbolic</a> fraction arithmetic:</p>
+
+<pre><code>	use Number::Fraction ':constants';
+	my $f = '1/2' - '1/3'; # returns 1/6
+</code></pre>
+
+<p>The <code>Math::BigRat</code> extension provides similar functionality. Its advantage is compatibility with the
+<code>Math::BigInt</code> and <code>Math::BigFloat</code> extensions, but it does not seem to support fraction literals.</p>
+
+<h2 id="how-to-round">How to Round</h2>
+<p>To get a string:</p>
+
+<pre><code>	$result = sprintf("%.2f", 1.2345); # returns 1.23 
+</code></pre>
+
+<p>To format output:</p>
+
+<pre><code>	printf("%.2f", 1.2); # prints 1.20
+</code></pre>
+
+<p>Note that this implicitly uses <a href="/errors/rounding/">round-to-even</a>. The variable <code>$#</code> contains the default format for printing numbers, but its use is considered deprecated.</p>
+
+<p>The <code>Math::Round</code> extension provides various functions for rounding floating-point values:</p>
+
+<pre><code>	use Math::Round qw(:all);
+	$result = nearest(.1, 4.567) # prints 4.6
+	$result = nearest(.01, 4.567) # prints 4.57
+</code></pre>
+
+<p>The <code>Math::BigFloat</code> extension also supports various <a href="/errors/rounding/">rounding modes</a>:</p>
+
+<pre><code>	use Math::BigFloat;
+	my $n = Math::BigFloat-&gt;new(123.455);
+	my $f1 = $n-&gt;round('','-2','common'); # returns 123.46
+	my $f2 = $n-&gt;round('','-2','zero'); # returns 123.45
+</code></pre>
+
+<h2 id="resources">Resources</h2>
+<ul>
+  <li><a href="http://perldoc.perl.org/perlnumber.html">Semantics of numbers and numeric operations in Perl</a></li>
+  <li><a href="http://perldoc.perl.org/functions/sprintf.html">sprintf function</a></li>
+  <li><a href="http://search.cpan.org/dist/Math-Round/Round.pm">Math::Round extension</a></li>
+  <li><a href="http://search.cpan.org/~davecross/Number-Fraction-1.13/lib/Number/Fraction.pm">Number::Fraction extension</a></li>
+  <li><a href="http://search.cpan.org/~flora/Math-BigRat-0.26/lib/Math/BigRat.pm">Math::BigRat extension</a></li>
+  <li><a href="http://search.cpan.org/~flora/Math-BigInt-1.95/lib/Math/BigFloat.pm">Math::BigFloat extension</a></li>
+</ul>
+
+
+	  
+			<div id="license">
+			<p>&copy; Published at <a href="https://floating-point-gui.de/">floating-point-gui.de</a> under the 
+			<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License (BY)</a></p>
+		</div>
+    </div>
+    <div id="sidebar">
+		<img src="/logo.png">
+		<h2>The Floating-Point Guide</h2>
+		<ul>
+			<li><a href="http://puntoflotante.org/" alt="en Espa&ntilde;ol"><img title="en Espa&ntilde;ol" src="/es.png"></a></li>
+			<li><a href="/">Home</a></li>
+			<li><a href="/basic/">Basic Answers</a></li>
+			<li><a href="/references/">References</a></li>
+			<li><a href="/xkcd/">xkcd</a></li>
+		</ul>
+	  
+		<h2>Number Formats</h2>	
+		<ul>
+			<li><a href="/formats/binary/">Binary Fractions</a></li>
+			<li><a href="/formats/fp/">Floating-Point</a></li>
+			<li><a href="/formats/exact/">Exact Types</a></li>
+			<li><a href="/formats/integer/">On Using Integers</a></li>
+		</ul>
+	
+		<h2>Errors</h2>	
+		<ul>
+			<li><a href="/errors/rounding/">Rounding</a></li>
+			<li><a href="/errors/comparison/">Comparison</a></li>
+			<li><a href="/errors/propagation/">Propagation</a></li>
+		</ul>
+		
+		<h2>Language<br>cheat sheets</h2>
+		<ul>
+			<li><a href="/languages/csharp/">C#</a></li>
+			<li><a href="/languages/java/">Java</a></li>
+			<li><a href="/languages/javascript/">JavaScript</a></li>
+			<li><a href="/languages/perl/">Perl</a></li>
+			<li><a href="/languages/php/">PHP</a></li>
+			<li><a href="/languages/python/">Python</a></li>
+			<li><a href="/languages/ruby/">Ruby</a></li>
+			<li><a href="/languages/sql/">SQL</a></li>
+		</ul>
+    </div>
+<a href="http://github.com/brazzy/floating-point-gui.de"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+
+  </body>
+</html>

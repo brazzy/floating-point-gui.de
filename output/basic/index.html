@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Floating-Point Guide - Basic Answers</title>
+	
+    <meta name="generator" content="nanoc 3.1.2">
+	
+		<meta name="Description" content="Concise answers to common basic questions about floating-point math, like "Why don't my numbers add up?"">
+	
+    <link rel="stylesheet" type="text/css" href="/style.css?v1" media="screen">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body>  
+    <div id="main">
+		<h1>Basic Answers</h1>
+      
+<h3 id="why-dont-my-numbers-like-01--02-add-up-to-a-nice-round-03-and-instead-i-get-a-weird-result-like-030000000000000004">Why don’t my numbers, like 0.1 + 0.2 add up to a nice round 0.3, and instead I get a weird result like 0.30000000000000004?</h3>
+
+<p>Because internally, computers use a format (<a href="/formats/binary/">binary</a> <a href="/formats/fp/">floating-point</a>) that
+cannot accurately represent a number like 0.1, 0.2 or 0.3 <em>at all</em>.</p>
+
+<p>When the code is compiled or interpreted, your “0.1” is already 
+rounded to the nearest number in that format, which results 
+in a small <a href="/errors/rounding/">rounding error</a> even before the calculation happens.</p>
+
+<h3 id="why-do-computers-use-such-a-stupid-system">Why do computers use such a stupid system?</h3>
+
+<p>It’s not stupid, just different. Decimal numbers cannot accurately 
+represent a number like 1/3, so you have to round to something like 
+0.33 - and you  don’t expect 0.33 + 0.33 + 0.33 to add up to 1, either - do you?</p>
+
+<p>Computers use <a href="/formats/binary/">binary numbers</a> because they’re faster at dealing with 
+those, and because for most calculations, a tiny error in the 17th
+decimal place doesn’t matter at all since the numbers you work with
+aren’t round (or that precise) anyway.</p>
+
+<h3 id="what-can-i-do-to-avoid-this-problem">What can I do to avoid this problem?</h3>
+
+<p>That depends on what kind of calculations you’re doing.</p>
+
+<ul>
+  <li>If you really need your results to add up exactly, especially when you work with money: use a special <a href="/formats/exact/">decimal datatype</a>.</li>
+  <li>If you just don’t want to see all those extra decimal places: simply format your result rounded to a fixed number of decimal places when displaying it.</li>
+  <li>If you have no decimal datatype available, an alternative is to work with <a href="/formats/integer/">integers</a>, e.g. do money calculations entirely in cents. But this is more work and has some drawbacks.</li>
+</ul>
+
+<h3 id="why-do-other-calculations-like-01--04-work-correctly">Why do other calculations like 0.1 + 0.4 work correctly?</h3>
+
+<p>In that case, the result (0.5) <em>can</em> be represented exactly as a floating-point number,
+and it’s possible for rounding errors in the input numbers to cancel each other out -
+But that can’t necessarily be relied upon (e.g. when those two numbers
+were stored in differently sized floating point representations first, the rounding 
+errors might not offset each other).</p>
+
+<p>In other cases like 0.1 + 0.3, the result actually isn’t <em>really</em> 0.4, but close enough that 0.4 
+is the shortest number that is closer to the result than to any other floating-point number. Many languages then display that number instead of converting the actual result back to the closest
+decimal fraction.</p>
+
+	  
+			<div id="license">
+			<p>&copy; Published at <a href="https://floating-point-gui.de/">floating-point-gui.de</a> under the 
+			<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License (BY)</a></p>
+		</div>
+    </div>
+    <div id="sidebar">
+		<img src="/logo.png">
+		<h2>The Floating-Point Guide</h2>
+		<ul>
+			<li><a href="http://puntoflotante.org/" alt="en Espa&ntilde;ol"><img title="en Espa&ntilde;ol" src="/es.png"></a></li>
+			<li><a href="/">Home</a></li>
+			<li><a href="/basic/">Basic Answers</a></li>
+			<li><a href="/references/">References</a></li>
+			<li><a href="/xkcd/">xkcd</a></li>
+		</ul>
+	  
+		<h2>Number Formats</h2>	
+		<ul>
+			<li><a href="/formats/binary/">Binary Fractions</a></li>
+			<li><a href="/formats/fp/">Floating-Point</a></li>
+			<li><a href="/formats/exact/">Exact Types</a></li>
+			<li><a href="/formats/integer/">On Using Integers</a></li>
+		</ul>
+	
+		<h2>Errors</h2>	
+		<ul>
+			<li><a href="/errors/rounding/">Rounding</a></li>
+			<li><a href="/errors/comparison/">Comparison</a></li>
+			<li><a href="/errors/propagation/">Propagation</a></li>
+		</ul>
+		
+		<h2>Language<br>cheat sheets</h2>
+		<ul>
+			<li><a href="/languages/csharp/">C#</a></li>
+			<li><a href="/languages/java/">Java</a></li>
+			<li><a href="/languages/javascript/">JavaScript</a></li>
+			<li><a href="/languages/perl/">Perl</a></li>
+			<li><a href="/languages/php/">PHP</a></li>
+			<li><a href="/languages/python/">Python</a></li>
+			<li><a href="/languages/ruby/">Ruby</a></li>
+			<li><a href="/languages/sql/">SQL</a></li>
+		</ul>
+    </div>
+<a href="http://github.com/brazzy/floating-point-gui.de"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+
+  </body>
+</html>
