@@ -1,0 +1,74 @@
+--- 
+title: Floating-point cheat sheet for Rust
+description: Tips for using floating-point and decimal numbers in Rust 
+--- 
+
+Floating-Point Types
+--------
+Rust has [IEEE 754](/formats/fp/) single precision (32-bit) and double
+precision (64-bit) types:
+
+		let x: f32 = 0.1; // 32-bit float
+		let y: f64 = 0.1; // 64-bit float
+
+The default floating point type is <code>f64</code>:
+
+		let z = 0.1; // 64-bit float
+
+Decimal Types
+-------------
+
+Rust does not have a built-in decimal type. However, there are various crates
+which implement a decimal type such as
+[rust_decimal](https://crates.io/crates/rust-decimal). The rust_decimal crate
+implements a 128-bit [limited-precision](/formats/exact/) decimal type denoted
+by the keyword <code>Decimal</code>:
+
+    use rust_decimal::prelude::*;
+
+    let a = Decimal::new(1, 1); // second param is the number of fractional digits
+    let b = Decimal::new(2, 1); // a Decimal representing exactly 0.2
+    let c = a + b; // a Decimal representing exactly 0.3
+
+How to Round
+------------
+To get a string:
+
+    format!("{:.2}", 1.2399); // returns "1.24"
+    format!("{:.3}", 1.2399); // returns "1.240"
+    format!("{:.2}", 1.2); // returns "1.20"
+		
+To print to standard output:
+
+    println!("{:.2}", 1.2399); // prints "1.24"
+		
+The <code>round</code> method returns the nearest integer to a number. It uses
+the [rounding mode](/errors/rounding/) "Round half away from zero," and works 
+with both <code>f32</code> and <code>f64</code> types.  
+
+    let f: f64 = 3.3;
+    let g: f64 = -3.3;
+
+    f.round(); // returns 3.0
+    g.round(); // returns -3.0
+
+The rust_decimal crate contains the <code>round_dp</code> method which uses the
+Banker's [rounding mode](/errors/rounding/).  
+
+    let pi = Decimal::from_str("3.1415926535897932384626433832").unwrap();
+    println!("{}", pi.round_dp(2).to_string()); // prints "3.14"
+
+The rust_decimal crate also contains the <code>round_dp_with_strategy</code>
+method which allows you to specify a rounding strategy:
+
+    let i = Decimal::from_str("1.25").unwrap();
+    println!(
+        "{}",
+        i.round_dp_with_strategy(1, RoundingStrategy::RoundDown)
+            .to_string()
+    ) // prints "1.2"
+
+Resources 
+---------
+* [The Rust Programming Language](https://doc.rust-lang.org/book/ch03-02-data-types.html#floating-point-types)
+* [rust_decimal crate](https://crates.io/crates/rust-decimal)

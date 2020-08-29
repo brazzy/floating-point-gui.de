@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Floating-Point Guide - Floating-point cheat sheet for Rust</title>
+	
+    <meta name="generator" content="nanoc 3.1.2">
+	
+		<meta name="Description" content="Tips for using floating-point and decimal numbers in Rust">
+	
+    <link rel="stylesheet" type="text/css" href="/style.css?v1" media="screen">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body>  
+    <div id="main">
+		<h1>Floating-point cheat sheet for Rust</h1>
+      
+<h2 id="floating-point-types">Floating-Point Types</h2>
+<p>Rust has <a href="/formats/fp/">IEEE 754</a> single precision (32-bit) and double
+precision (64-bit) types:</p>
+
+<pre><code>	let x: f32 = 0.1; // 32-bit float
+	let y: f64 = 0.1; // 64-bit float
+</code></pre>
+
+<p>The default floating point type is <code>f64</code>:</p>
+
+<pre><code>	let z = 0.1; // 64-bit float
+</code></pre>
+
+<h2 id="decimal-types">Decimal Types</h2>
+
+<p>Rust does not have a built-in decimal type. However, there are various crates
+which implement a decimal type such as
+<a href="https://crates.io/crates/rust-decimal">rust_decimal</a>. The rust_decimal crate
+implements a 128-bit <a href="/formats/exact/">limited-precision</a> decimal type denoted
+by the keyword <code>Decimal</code>:</p>
+
+<pre><code>use rust_decimal::prelude::*;
+
+let a = Decimal::new(1, 1); // second param is the number of fractional digits
+let b = Decimal::new(2, 1); // a Decimal representing exactly 0.2
+let c = a + b; // a Decimal representing exactly 0.3
+</code></pre>
+
+<h2 id="how-to-round">How to Round</h2>
+<p>To get a string:</p>
+
+<pre><code>format!("{:.2}", 1.2399); // returns "1.24"
+format!("{:.3}", 1.2399); // returns "1.240"
+format!("{:.2}", 1.2); // returns "1.20"
+</code></pre>
+
+<p>To print to standard output:</p>
+
+<pre><code>println!("{:.2}", 1.2399); // prints "1.24"
+</code></pre>
+
+<p>The <code>round</code> method returns the nearest integer to a number. It uses
+the <a href="/errors/rounding/">rounding mode</a> “Round half away from zero,” and works 
+with both <code>f32</code> and <code>f64</code> types.</p>
+
+<pre><code>let f: f64 = 3.3;
+let g: f64 = -3.3;
+
+f.round(); // returns 3.0
+g.round(); // returns -3.0
+</code></pre>
+
+<p>The rust_decimal crate contains the <code>round_dp</code> method which uses the
+Banker’s <a href="/errors/rounding/">rounding mode</a>.</p>
+
+<pre><code>let pi = Decimal::from_str("3.1415926535897932384626433832").unwrap();
+println!("{}", pi.round_dp(2).to_string()); // prints "3.14"
+</code></pre>
+
+<p>The rust_decimal crate also contains the <code>round_dp_with_strategy</code>
+method which allows you to specify a rounding strategy:</p>
+
+<pre><code>let i = Decimal::from_str("1.25").unwrap();
+println!(
+    "{}",
+    i.round_dp_with_strategy(1, RoundingStrategy::RoundDown)
+        .to_string()
+) // prints "1.2"
+</code></pre>
+
+<h2 id="resources">Resources</h2>
+<ul>
+  <li><a href="https://doc.rust-lang.org/book/ch03-02-data-types.html#floating-point-types">The Rust Programming Language</a></li>
+  <li><a href="https://crates.io/crates/rust-decimal">rust_decimal crate</a></li>
+</ul>
+
+	  
+			<div id="license">
+			<p>&copy; Published at <a href="https://floating-point-gui.de/">floating-point-gui.de</a> under the 
+			<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License (BY)</a></p>
+		</div>
+    </div>
+    <div id="sidebar">
+		<img src="/logo.png">
+		<h2>The Floating-Point Guide</h2>
+		<ul>
+			<li><a href="http://puntoflotante.org/" alt="en Espa&ntilde;ol"><img title="en Espa&ntilde;ol" src="/es.png"></a></li>
+			<li><a href="/">Home</a></li>
+			<li><a href="/basic/">Basic Answers</a></li>
+			<li><a href="/references/">References</a></li>
+			<li><a href="/xkcd/">xkcd</a></li>
+		</ul>
+	  
+		<h2>Number Formats</h2>	
+		<ul>
+			<li><a href="/formats/binary/">Binary Fractions</a></li>
+			<li><a href="/formats/fp/">Floating-Point</a></li>
+			<li><a href="/formats/exact/">Exact Types</a></li>
+			<li><a href="/formats/integer/">On Using Integers</a></li>
+		</ul>
+	
+		<h2>Errors</h2>	
+		<ul>
+			<li><a href="/errors/rounding/">Rounding</a></li>
+			<li><a href="/errors/comparison/">Comparison</a></li>
+			<li><a href="/errors/propagation/">Propagation</a></li>
+		</ul>
+		
+		<h2>Language<br>cheat sheets</h2>
+		<ul>
+			<li><a href="/languages/csharp/">C#</a></li>
+			<li><a href="/languages/java/">Java</a></li>
+			<li><a href="/languages/javascript/">JavaScript</a></li>
+			<li><a href="/languages/perl/">Perl</a></li>
+			<li><a href="/languages/php/">PHP</a></li>
+			<li><a href="/languages/python/">Python</a></li>
+			<li><a href="/languages/ruby/">Ruby</a></li>
+			<li><a href="/languages/rust/">Rust</a></li>
+			<li><a href="/languages/sql/">SQL</a></li>
+		</ul>
+    </div>
+<a href="http://github.com/brazzy/floating-point-gui.de"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+
+  </body>
+</html>
