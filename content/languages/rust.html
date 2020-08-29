@@ -26,8 +26,8 @@ by the keyword <code>Decimal</code>:
 
     use rust_decimal::prelude::*;
 
-    let a = Decimal::new(1, 1);
-    let b = Decimal::new(2, 1);
+    let a = Decimal::new(1, 1); // second param is the number of fractional digits
+    let b = Decimal::new(2, 1); // a Decimal representing exactly 0.2
     let c = a + b; // a Decimal representing exactly 0.3
 
 How to Round
