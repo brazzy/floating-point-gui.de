@@ -5,9 +5,9 @@ description: Tips for using floating-point and decimal numbers in PHP
 
 Floating-Point Types
 --------
-PHP is dynamically typed and will often convert implicitly between strings and floating-point numbers (which are platform-dependant, but typically IEEE 64 bit values). To force a value to floating-point, evaluate it in a numerical context:
+PHP is dynamically typed and will often convert implicitly between strings and floating-point numbers (which are platform-dependant, but typically IEEE 64 bit values). To force a value to floating-point, cast it:
 
-		$foo = 0 + "10.5"; 
+		$foo = (float)'10.5'; 
 
 
 Decimal Types
