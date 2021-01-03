@@ -15,7 +15,7 @@ compile '*' do
     when 'html'
 	  filter :erb
 	  filter :kramdown
-	  layout 'default'
+	  layout '/default/'
   end
 end
 
