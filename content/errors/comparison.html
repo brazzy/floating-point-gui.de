@@ -45,7 +45,7 @@ Also, the result is not commutative (`nearlyEquals(a,b)` is not always the same 
 
 			if (a == b) { // shortcut, handles infinities
 				return true;
-        } else if (a == 0 || b == 0 || (absA + absB < Float.MIN_NORMAL)) {
+			} else if (a == 0 || b == 0 || (absA + absB < Float.MIN_NORMAL)) {
 				// a or b is zero or both are extremely close to it
 				// relative error is less meaningful here
 				return diff < (epsilon * Float.MIN_NORMAL);
